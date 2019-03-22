@@ -32,6 +32,7 @@ public class KassapaateTest {
         assertTrue(kassa.maukkaitaLounaitaMyyty()==0);
     }
     
+    @Test
     public void syoEdullisestiOk(){
         assertTrue(60==kassa.syoEdullisesti(300));
         assertTrue(kassa.kassassaRahaa()==100240);
@@ -41,6 +42,7 @@ public class KassapaateTest {
         assertTrue(kassa.edullisiaLounaitaMyyty()==1);
     }
     
+    @Test
     public void syoMaukkaastiOk(){
         assertTrue(20==kassa.syoMaukkaasti(420));
         assertTrue(kassa.kassassaRahaa()==100400);
@@ -50,6 +52,39 @@ public class KassapaateTest {
         assertTrue(kassa.maukkaitaLounaitaMyyty()==1);
     }
     
+    @Test
+    public void syoEdullisestiKortilla(){
+        Maksukortti kortti = new Maksukortti(300);
+        assertTrue(kassa.syoEdullisesti(kortti));
+        assertTrue(kassa.edullisiaLounaitaMyyty()==1);
+        assertTrue(kortti.saldo()==60);
+        assertTrue(!kassa.syoEdullisesti(kortti));
+        assertTrue(kassa.edullisiaLounaitaMyyty()==1);
+        assertTrue(kortti.saldo()==60);
+        assertTrue(kassa.kassassaRahaa()==100000);
+    }
     
+    @Test
+    public void syoMaukkaastiKortilla(){
+        Maksukortti kortti = new Maksukortti(500);
+        assertTrue(kassa.syoMaukkaasti(kortti));
+        assertTrue(kassa.maukkaitaLounaitaMyyty()==1);
+        assertTrue(kortti.saldo()==100);
+        assertTrue(!kassa.syoMaukkaasti(kortti));
+        assertTrue(kassa.maukkaitaLounaitaMyyty()==1);
+        assertTrue(kortti.saldo()==100);
+        assertTrue(kassa.kassassaRahaa()==100000);
+    }
+    
+    @Test
+    public void kortinLatausOk(){
+        Maksukortti kortti = new Maksukortti(100);
+        kassa.lataaRahaaKortille(kortti, 1);
+        assertTrue(kassa.kassassaRahaa()==100001);
+        assertTrue(kortti.saldo()==101);
+        kassa.lataaRahaaKortille(kortti, -20);
+        assertTrue(kassa.kassassaRahaa()==100001);
+        assertTrue(kortti.saldo()==101);
+    }
     
 }
