@@ -23,13 +23,18 @@ include a graphical depiction of the network.
 + The user can save and load existing simulations to and from csv files via the internet or from their computer
 + The user can add nodes into a simulation and attach descriptions to these nodes. For example, node 1 has the message "finishes project on time" whilst node 2 has the message "plays football".
 + The user can add connections/transitions between nodes. Initially the connections are limited to 2-way equally weighted connections.
-+ The user can allow the random walk to jump into nodes that are not connected to it and define the probability of this occurring 
-+ The user can view the results of the simulation they designed, and select the results 
++ The user can allow the random walk to jump into nodes that are not connected to it during the simulation, and define the probability of this occurring at each step. 
++ The user can view the results of the simulation they designed, and see the results for each starting node.
++ The user can save the simulation they created into the location they defined earlier 
 
 # Expansion possibilities
 
+In addition to the suggestions given before, the application can be expanded in the following ways:
+
 + The addition of nodes can be expanded to include one-way and arbitrary probability transitions. In order for the system to behave like a markov process the application should be able to change existing transitions so that the walk stays in the graph.
-+   
++ Graphical visualization of the progression of the simulation on the results screen
++ Expand the user roles, i.e. add login functionality.
++ 
 
   
   
