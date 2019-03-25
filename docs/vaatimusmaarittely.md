@@ -32,9 +32,9 @@ include a graphical depiction of the network.
 In addition to the suggestions given before, the application can be expanded in the following ways:
 
 + The addition of nodes can be expanded to include one-way and arbitrary probability transitions. In order for the system to behave like a markov process the application should be able to change existing transitions so that the walk stays in the graph.
-+ Graphical visualization of the progression of the simulation on the results screen
-+ Expand the user roles, i.e. add login functionality.
-+ 
++ Graphical visualization of the progression of the simulation can be added to the results screen
++ Expanded user roles, i.e. added login functionality.
++ Add simulation predictions: does a steady state exist, what is the steady state vector? This would require solving for eigenvalues of nxn transition matrix. 
 
   
   
