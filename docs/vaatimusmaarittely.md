@@ -18,6 +18,8 @@ simulation editing scene, allowing the user to see the nodes and connections as 
 network. The third scene would contain results of the simulation, with a ranking of the most likely states of the system. Similarly, this view could be expanded to 
 include a graphical depiction of the network.
 
+
+
 # Initial Functionality
 
 + The user can save and load existing simulations to and from csv files via the internet or from their computer
