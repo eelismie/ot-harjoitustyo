@@ -18,7 +18,7 @@ simulation editing scene, allowing the user to see the nodes and connections as 
 network. The third scene would contain results of the simulation, with a ranking of the most likely states of the system. Similarly, this view could be expanded to 
 include a graphical depiction of the network.
 
-
+![GUI](https://github.com/volatilequark/ot-harjoitustyo/blob/master/laskarit/viikko1/GUI.png)
 
 # Initial Functionality
 
@@ -27,14 +27,14 @@ include a graphical depiction of the network.
 + The user can add connections/transitions between nodes. Initially the connections are limited to 2-way equally weighted connections.
 + The user can allow the random walk to jump into nodes that are not connected to it during the simulation, and define the probability of this occurring at each step. 
 + The user can view the results of the simulation they designed, and see the results for each starting node.
-+ The user can save the simulation they created into the location they defined earlier 
++ The user can save the simulation they created into the location they defined earlier. 
 
 # Expansion possibilities
 
 In addition to the suggestions given before, the application can be expanded in the following ways:
 
 + The addition of nodes can be expanded to include one-way and arbitrary probability transitions. In order for the system to behave like a markov process the application should be able to change existing transitions so that the walk stays in the graph.
-+ Graphical visualization of the progression of the simulation can be added to the results screen
++ Graphical visualization of the progression of the simulation can be added to the results screen.
 + Expanded user roles, i.e. added login functionality.
 + Add simulation predictions: does a steady state exist, what is the steady state vector? This would require solving for eigenvalues of nxn transition matrix. 
 
