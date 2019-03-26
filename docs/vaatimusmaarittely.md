@@ -11,14 +11,14 @@ Primarily there will be one user at a time who can create / load simulations. Th
 loads or saves simulations via the internet or from their local computer. This, in a trivial way, would allow simulations to be shared between users (either by sharing
 a google docs link or file).  
 
-# GUI interface
+# GUI 
 
 The application will initially consist of only three separate scenes. The initial scene will handle simulation loading and creation. The second screen would be a 
 simulation editing scene, allowing the user to see the nodes and connections as a list and add more if necessary. If time allows, this could be expanded to show a graphical depiction of the 
 network. The third scene would contain results of the simulation, with a ranking of the most likely states of the system. Similarly, this view could be expanded to 
 include a graphical depiction of the network.
 
-![GUI](https://github.com/volatilequark/ot-harjoitustyo/blob/master/laskarit/viikko1/GUI.png)
+![GUI](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/GUI.png)
 
 # Initial Functionality
 
