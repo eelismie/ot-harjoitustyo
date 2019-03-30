@@ -12,15 +12,21 @@ public class markovManager {
     boolean simexists;
     HashSet<String> names;
     ArrayList<String> namenumbers;
-    int nodes;
+    ArrayList<Integer>[] net;
     
     public markovManager(){
         statesaved = false;
         simexists = false;
         namenumbers = new ArrayList<>();
+        names = new HashSet<>();
     }
     
     public void addNode(String description){
-        
+        namenumbers.add(description);
+        names.add(description);
+    }
+    
+    public boolean nodeExists(String description){
+        return names.contains(description);
     }
 }

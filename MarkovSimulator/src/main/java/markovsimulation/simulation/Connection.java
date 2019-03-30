@@ -7,4 +7,5 @@ package markovsimulation.simulation;
 
 public class Connection {
     
+    
 }
