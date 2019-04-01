@@ -1,8 +1,6 @@
 package markovsimulation.ui;
 
-
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 import markovsimulation.domain.markovManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -18,13 +16,21 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.ListView;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 
 public class markovUI extends Application {
     
+    //public void drawnodes(ListView view, markovManager logic){
+    //    ArrayList<String> nodes = logic.getNodes();
+    //}
+    
     @Override
     public void start(Stage window){
-        window.setHeight(300);
-        window.setWidth(500);
+        
+        window.setHeight(500);
+        window.setWidth(700);
         window.setTitle("Markov Process Simulation");
         markovManager logic = new markovManager();
         
@@ -52,7 +58,7 @@ public class markovUI extends Application {
         textinput1.getChildren().setAll(loadlabel, filelocation, loadbutton);
         inputfield1.getChildren().setAll(textinput1);
         
-        //Scene Root
+        //Load scene Root
         BorderPane frame1 = new BorderPane();
         frame1.setBottom(buttonfield1);
         frame1.setCenter(inputfield1);
@@ -73,22 +79,50 @@ public class markovUI extends Application {
         // Editfield - Center
         GridPane editpane = new GridPane();
         editpane.setPadding(new Insets(10));
+        editpane.setHgap(5);
+        editpane.setVgap(5);
         editpane.setAlignment(Pos.CENTER);
+        
         HBox textinput2 = new HBox();
         textinput2.setSpacing(5);
         Button nodeaddbutton = new Button("add");
         TextField nodename = new TextField();
         Label nodeaddlabel = new Label("Node descriptor: ");
         textinput2.getChildren().setAll(nodeaddlabel, nodename, nodeaddbutton);
-        editpane.add(textinput2, 0, 0);
+        
+        HBox textinput3 = new HBox();
+        textinput3.setSpacing(5);
+        Button connectaddbutton = new Button("add");
+        TextField connectfrom = new TextField();
+        TextField connectto = new TextField();
+        connectfrom.setMaxWidth(50);
+        connectto.setMaxWidth(50);
+        Label connectaddlabel = new Label("Connection (start/end): ");
+        textinput3.getChildren().setAll(connectaddlabel, connectfrom, connectto, connectaddbutton);
+        
+        ListView nodelist = new ListView();
+        ListView connectionlist = new ListView();
+        
+        editpane.add(nodelist, 0, 0);
+        editpane.add(connectionlist, 1, 0);
+        editpane.add(textinput2, 0, 1);
+        editpane.add(textinput3, 1, 1);
         
         nodeaddbutton.setOnAction(e -> {
             String newname = nodename.getText();
-            if (!logic.nodeExists(newname)){
+            if (!logic.nodeExists(newname) && (!newname.equals(""))){
                 logic.addNode(newname);
-                System.out.println(newname + " added!");
+                System.out.println("node: " + newname + " added!");
+            }
+        });
+        
+        connectaddbutton.setOnAction(e -> {
+            String begin = connectfrom.getText();
+            String end = connectto.getText();
+            if (logic.addConnect(begin, end)){
+                System.out.println("connection from " + begin + " to " + end + "added!");
             } else {
-                System.out.println(newname + " already exists!");
+                System.out.println("incorrect input!");
             }
         });
         
@@ -100,14 +134,34 @@ public class markovUI extends Application {
          
         //___result scene___
         
+        HBox buttonfield3 = new HBox();
+        buttonfield3.setPadding(new Insets(10));
+        Button back3 = new Button("back");
+        Region spacer3 = new Region();
+        HBox.setHgrow(spacer3, Priority.ALWAYS);
+        buttonfield3.getChildren().setAll(back3, spacer3);
+        
+        
+        BorderPane frame3 = new BorderPane();
+        frame3.setBottom(buttonfield3);
+        Scene resultscene = new Scene(frame3);
+        
         //___scene-switch button functionality
         
         next1.setOnAction(e -> {
             window.setScene(editscene);
         });
         
+        next2.setOnAction(e -> {
+            window.setScene(resultscene);
+        });
+        
         back2.setOnAction(e -> {
             window.setScene(loadscene);
+        });
+        
+        back3.setOnAction(e -> {
+            window.setScene(editscene);
         });
         
         window.setScene(loadscene);
