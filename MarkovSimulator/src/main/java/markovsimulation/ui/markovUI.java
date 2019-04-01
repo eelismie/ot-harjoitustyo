@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.ListView;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.scene.text.Text;
 
 public class markovUI extends Application {
     
@@ -103,16 +104,21 @@ public class markovUI extends Application {
         ListView nodelist = new ListView();
         ListView connectionlist = new ListView();
         
-        editpane.add(nodelist, 0, 0);
-        editpane.add(connectionlist, 1, 0);
-        editpane.add(textinput2, 0, 1);
-        editpane.add(textinput3, 1, 1);
+        Text nodeadded = new Text();
+        Text connectadded = new Text();
+        
+        editpane.add(nodeadded, 0, 0);
+        editpane.add(connectadded, 1, 0);
+        editpane.add(nodelist, 0, 1);
+        editpane.add(connectionlist, 1, 1);
+        editpane.add(textinput2, 0, 2);
+        editpane.add(textinput3, 1, 2);
         
         nodeaddbutton.setOnAction(e -> {
             String newname = nodename.getText();
             if (!logic.nodeExists(newname) && (!newname.equals(""))){
                 logic.addNode(newname);
-                System.out.println("node: " + newname + " added!");
+                nodeadded.setText("node: " + newname + " added!");
             }
         });
         
@@ -120,9 +126,9 @@ public class markovUI extends Application {
             String begin = connectfrom.getText();
             String end = connectto.getText();
             if (logic.addConnect(begin, end)){
-                System.out.println("connection from " + begin + " to " + end + "added!");
+                connectadded.setText("connection from " + begin + " to " + end + " added!");
             } else {
-                System.out.println("incorrect input!");
+                connectadded.setText("incorrect input!");
             }
         });
         
