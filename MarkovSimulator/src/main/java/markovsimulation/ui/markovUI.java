@@ -141,6 +141,10 @@ public class markovUI extends Application {
         HBox.setHgrow(spacer3, Priority.ALWAYS);
         buttonfield3.getChildren().setAll(back3, spacer3, next3);
         
+        next3.setOnAction(e->{
+            logic.evolveCurrentSim(1);
+            logic.printmatrix();
+        });
         
         BorderPane frame3 = new BorderPane();
         frame3.setBottom(buttonfield3);
@@ -153,8 +157,10 @@ public class markovUI extends Application {
         });
         
         next2.setOnAction(e -> {
-            logic.initsim();
-            window.setScene(resultscene);
+            if (!logic.nothingloaded()){
+                logic.initsim();
+                window.setScene(resultscene);
+            }
         });
         
         back2.setOnAction(e -> {

@@ -49,4 +49,5 @@ public class Simulation {
     public double[][] getStateMatrix(){
         return this.state;
     }
+    
 }

@@ -2,17 +2,16 @@
 package markovsimulation.domain;
 import markovsimulation.simulation.Simulation;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class markovManager {
-    boolean statesaved;
     Simulation currentsim;
     HashSet<String> names;
     ArrayList<String> nodes;
     ArrayList<ArrayList<Integer>> connections;
     
     public markovManager(){
-        statesaved = false;
         nodes = new ArrayList<>();
         names = new HashSet<>();
         connections = new ArrayList<>();
@@ -57,7 +56,22 @@ public class markovManager {
         return names.contains(description);
     }
     
+    public boolean nothingloaded(){
+        return (nodes.isEmpty());
+    }
+    
     public ArrayList getNodes(){
         return nodes;
+    }
+    
+    public void evolveCurrentSim(int n){
+        for (int i = 0; i < n; i++){
+            currentsim.next();
+        }
+    }
+    
+    public void printmatrix(){
+        double[][] printable = currentsim.getStateMatrix();
+        System.out.println(Arrays.deepToString(printable));
     }
 }
