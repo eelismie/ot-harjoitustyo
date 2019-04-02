@@ -41,6 +41,21 @@ public class SimulationTest {
         expected[1][0] = 1.0;
         assertTrue(Arrays.deepEquals(expected, sim.getTransitionMatrix()));
     }
+    
+    @Test
+    public void networkWithNoConnectsOK(){
+        ArrayList<String> nodes = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> connections = new ArrayList<>();
+        
+        nodes.add("Event 1");
+        nodes.add("Event 2");
+        nodes.add("Event 3");
+        for (int i = 0; i < 3; i++){connections.add(new ArrayList<>());};
+        Simulation sim2 = new Simulation(nodes, connections);
+        
+        double[][] expected = {{1.0, 0.0, 0.0}, {0.0,1.0,0.0}, {0.0,0.0,1.0}};
+        assertTrue(Arrays.deepEquals(expected, sim2.getTransitionMatrix()));
+    }
         
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

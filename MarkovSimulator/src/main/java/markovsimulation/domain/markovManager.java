@@ -48,7 +48,7 @@ public class markovManager {
             boolean valid = (((a < nodes.size()) && (a >= 0))&&((b < nodes.size())&&(b >= 0)));
             if (valid && (a!=b)){
                 connections.get(a).add(b);
-                connections.get(b).add(a);
+                //connections.get(b).add(a); uncomment this for two way connections;
                 return true;
             }
         } catch(NumberFormatException e){
