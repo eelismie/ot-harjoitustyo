@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package markovsimulation.domain;
 import markovsimulation.simulation.Simulation;
 import java.util.ArrayList;
@@ -48,7 +44,7 @@ public class markovManager {
             boolean valid = (((a < nodes.size()) && (a >= 0))&&((b < nodes.size())&&(b >= 0)));
             if (valid && (a!=b)){
                 connections.get(a).add(b);
-                //connections.get(b).add(a); uncomment this for two way connections;
+                //connections.get(b).add(a); uncomment this for two-way connections;
                 return true;
             }
         } catch(NumberFormatException e){

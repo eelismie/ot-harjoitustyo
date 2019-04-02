@@ -20,10 +20,6 @@ import javafx.scene.text.Text;
 
 public class markovUI extends Application {
     
-    //public void drawnodes(ListView view, markovManager logic){
-    //    ArrayList<String> nodes = logic.getNodes();
-    //}
-    
     @Override
     public void start(Stage window){
         
@@ -140,9 +136,10 @@ public class markovUI extends Application {
         HBox buttonfield3 = new HBox();
         buttonfield3.setPadding(new Insets(10));
         Button back3 = new Button("back");
+        Button next3 = new Button("next state");
         Region spacer3 = new Region();
         HBox.setHgrow(spacer3, Priority.ALWAYS);
-        buttonfield3.getChildren().setAll(back3, spacer3);
+        buttonfield3.getChildren().setAll(back3, spacer3, next3);
         
         
         BorderPane frame3 = new BorderPane();
