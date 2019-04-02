@@ -24,7 +24,7 @@ public class markovUI extends Application {
     public void start(Stage window){
         
         window.setHeight(500);
-        window.setWidth(700);
+        window.setWidth(800);
         window.setTitle("Markov Process Simulation");
         markovManager logic = new markovManager();
         
