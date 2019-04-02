@@ -108,7 +108,7 @@ public class markovUI extends Application {
         editpane.add(textinput3, 1, 2);
         
         nodeaddbutton.setOnAction(e -> {
-            String newname = nodename.getText();
+            String newname = nodename.getText().trim();
             if (!logic.nodeExists(newname) && (!newname.equals(""))){
                 logic.addNode(newname);
                 nodeadded.setText("node: '" + newname + "' added!");

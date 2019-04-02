@@ -21,7 +21,7 @@ public class Simulation {
                 continue; //this keeps all of the paths inside the network and also avoids a division by zero.
             }
             for (int j : current){
-                transition[i][j] = 1.0/((double) current.size());
+                transition[j][i] = 1.0/((double) current.size());
             }
         }
         state = transition;
