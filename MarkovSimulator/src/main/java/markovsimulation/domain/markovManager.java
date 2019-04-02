@@ -4,22 +4,34 @@
  * and open the template in the editor.
  */
 package markovsimulation.domain;
+import markovsimulation.simulation.Simulation;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 public class markovManager {
     boolean statesaved;
-    boolean simexists;
+    Simulation currentsim;
     HashSet<String> names;
     ArrayList<String> nodes;
     ArrayList<ArrayList<Integer>> connections;
     
     public markovManager(){
         statesaved = false;
-        simexists = false;
         nodes = new ArrayList<>();
         names = new HashSet<>();
         connections = new ArrayList<>();
+    }
+    
+    public boolean initsim(){
+        if (nodes.isEmpty()) return false;
+        currentsim = new Simulation(nodes, connections);
+        return true;
+    }
+    
+    public void restart(){
+        nodes = new ArrayList<>();
+        connections = new ArrayList<>();
+        currentsim = null;
     }
     
     public void addNode(String description){

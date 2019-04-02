@@ -1,6 +1,5 @@
 package markovsimulation.ui;
 
-import java.util.ArrayList;
 import markovsimulation.domain.markovManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -17,8 +16,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.ListView;
-import javafx.collections.ObservableList;
-import javafx.collections.FXCollections;
 import javafx.scene.text.Text;
 
 public class markovUI extends Application {
@@ -98,7 +95,7 @@ public class markovUI extends Application {
         TextField connectto = new TextField();
         connectfrom.setMaxWidth(50);
         connectto.setMaxWidth(50);
-        Label connectaddlabel = new Label("Connection (start/end): ");
+        Label connectaddlabel = new Label("Connection (start idx/end idx): ");
         textinput3.getChildren().setAll(connectaddlabel, connectfrom, connectto, connectaddbutton);
         
         ListView nodelist = new ListView();
@@ -118,7 +115,7 @@ public class markovUI extends Application {
             String newname = nodename.getText();
             if (!logic.nodeExists(newname) && (!newname.equals(""))){
                 logic.addNode(newname);
-                nodeadded.setText("node: " + newname + " added!");
+                nodeadded.setText("node: '" + newname + "' added!");
             }
         });
         
@@ -159,6 +156,7 @@ public class markovUI extends Application {
         });
         
         next2.setOnAction(e -> {
+            logic.initsim();
             window.setScene(resultscene);
         });
         

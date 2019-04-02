@@ -33,4 +33,8 @@ public class Simulation {
         }
         this.transition = next;
     }
+    
+    public double[][] getTransitionMatrix(){
+        return this.transition;
+    }
 }
