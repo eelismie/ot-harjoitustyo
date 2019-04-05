@@ -42,6 +42,7 @@ public class markovManager {
             int b = Integer.parseInt(end);
             boolean valid = (((a < nodes.size()) && (a >= 0))&&((b < nodes.size())&&(b >= 0)));
             if (valid && (a!=b)){
+                if (connections.get(a).contains(b)) return false;
                 connections.get(a).add(b);
                 //connections.get(b).add(a); uncomment this for two-way connections;
                 return true;
@@ -62,6 +63,19 @@ public class markovManager {
     
     public ArrayList getNodes(){
         return nodes;
+    }
+    
+    public ArrayList getConnects(){
+        ArrayList<String> result = new ArrayList<>();
+        for (int i = 0; i < connections.size(); i++){
+            final int a = i;
+            ArrayList<Integer> ar = connections.get(i);
+            if (ar.isEmpty()) continue;
+            ar.forEach((j) -> {
+                result.add(a + " -> " + j.toString());
+            });
+        }
+        return result;
     }
     
     public void evolveCurrentSim(int n){

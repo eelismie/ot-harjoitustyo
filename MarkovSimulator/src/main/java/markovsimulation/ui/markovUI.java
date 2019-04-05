@@ -1,6 +1,9 @@
 package markovsimulation.ui;
 
+import java.util.ArrayList;
 import markovsimulation.domain.markovManager;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +22,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 
 public class markovUI extends Application {
+    
+    public void listelements(ListView<String> view, ArrayList<String> nodes){
+        if (nodes.isEmpty()) return;
+        ObservableList<String> items = FXCollections.observableArrayList(nodes);
+        view.setItems(items);
+    }
     
     @Override
     public void start(Stage window){
@@ -94,8 +103,8 @@ public class markovUI extends Application {
         Label connectaddlabel = new Label("Connection (start idx/end idx): ");
         textinput3.getChildren().setAll(connectaddlabel, connectfrom, connectto, connectaddbutton);
         
-        ListView nodelist = new ListView();
-        ListView connectionlist = new ListView();
+        ListView<String> nodelist = new ListView();
+        ListView<String> connectionlist = new ListView();
         
         Text nodeadded = new Text();
         Text connectadded = new Text();
@@ -112,6 +121,7 @@ public class markovUI extends Application {
             if (!logic.nodeExists(newname) && (!newname.equals(""))){
                 logic.addNode(newname);
                 nodeadded.setText("node: '" + newname + "' added!");
+                listelements(nodelist, logic.getNodes());
             }
         });
         
@@ -120,6 +130,7 @@ public class markovUI extends Application {
             String end = connectto.getText();
             if (logic.addConnect(begin, end)){
                 connectadded.setText("connection from " + begin + " to " + end + " added!");
+                listelements(connectionlist, logic.getConnects());
             } else {
                 connectadded.setText("incorrect input!");
             }
