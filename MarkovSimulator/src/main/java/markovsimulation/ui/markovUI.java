@@ -152,12 +152,15 @@ public class markovUI extends Application {
         HBox.setHgrow(spacer3, Priority.ALWAYS);
         buttonfield3.getChildren().setAll(back3, spacer3, next3);
         
+        ListView<String> probabilities = new ListView(); 
+        
         next3.setOnAction(e->{
             logic.evolveCurrentSim(1);
-            logic.printmatrix();
+            listelements(probabilities, logic.getProbabilities(0));
         });
         
         BorderPane frame3 = new BorderPane();
+        frame3.setCenter(probabilities);
         frame3.setBottom(buttonfield3);
         Scene resultscene = new Scene(frame3);
         

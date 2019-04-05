@@ -50,4 +50,12 @@ public class Simulation {
         return this.state;
     }
     
+    public ArrayList<Double> getProbability(int index){
+        ArrayList<Double> result = new ArrayList<>();
+        for (int i = 0; i < size; i++){
+            result.add(state[i][index]);
+        }
+        return result;
+    }
+    
 }

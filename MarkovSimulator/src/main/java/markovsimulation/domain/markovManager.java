@@ -62,7 +62,11 @@ public class markovManager {
     }
     
     public ArrayList getNodes(){
-        return nodes;
+        ArrayList<String> result = new ArrayList<>();
+        for (int i = 0; i < nodes.size(); i++){
+            result.add(i + " : " +nodes.get(i));
+        }
+        return result;
     }
     
     public ArrayList getConnects(){
@@ -78,14 +82,19 @@ public class markovManager {
         return result;
     }
     
+    public ArrayList getProbabilities(int index){
+        ArrayList<String> result = new ArrayList<>();
+        ArrayList<Double> probs = currentsim.getProbability(index);
+        for (int i = 0; i < connections.size(); i++){
+            result.add(nodes.get(i) + " : " + probs.get(i).toString());
+        }
+        return result;
+    }
+    
     public void evolveCurrentSim(int n){
         for (int i = 0; i < n; i++){
             currentsim.next();
         }
     }
     
-    public void printmatrix(){
-        double[][] printable = currentsim.getStateMatrix();
-        System.out.println(Arrays.deepToString(printable));
-    }
 }
