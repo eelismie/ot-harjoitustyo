@@ -2,16 +2,17 @@
 package markovsimulation.domain;
 import markovsimulation.simulation.Simulation;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 public class markovManager {
+    int resultdisplay;
     Simulation currentsim;
     HashSet<String> names;
     ArrayList<String> nodes;
     ArrayList<ArrayList<Integer>> connections;
     
     public markovManager(){
+        resultdisplay = 0;
         nodes = new ArrayList<>();
         names = new HashSet<>();
         connections = new ArrayList<>();
@@ -82,9 +83,9 @@ public class markovManager {
         return result;
     }
     
-    public ArrayList getProbabilities(int index){
+    public ArrayList getProbabilities(){
         ArrayList<String> result = new ArrayList<>();
-        ArrayList<Double> probs = currentsim.getProbability(index);
+        ArrayList<Double> probs = currentsim.getProbability(resultdisplay);
         for (int i = 0; i < connections.size(); i++){
             result.add(nodes.get(i) + " : " + probs.get(i).toString());
         }
@@ -95,6 +96,14 @@ public class markovManager {
         for (int i = 0; i < n; i++){
             currentsim.next();
         }
+    }
+
+    public void setResultDisplay(int i){
+        this.resultdisplay = i;
+    }
+    
+    public int getSize(){
+        return this.nodes.size();
     }
     
 }

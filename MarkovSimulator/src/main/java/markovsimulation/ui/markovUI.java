@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -20,6 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class markovUI extends Application {
     
@@ -32,6 +35,7 @@ public class markovUI extends Application {
     @Override
     public void start(Stage window){
         
+        int resultindex = 0;
         window.setHeight(500);
         window.setWidth(800);
         window.setTitle("Markov Process Simulation");
@@ -152,17 +156,49 @@ public class markovUI extends Application {
         HBox.setHgrow(spacer3, Priority.ALWAYS);
         buttonfield3.getChildren().setAll(back3, spacer3, next3);
         
-        ListView<String> probabilities = new ListView(); 
+        GridPane resultpane = new GridPane();
+        resultpane.setPadding(new Insets(10));
+        resultpane.setHgap(5);
+        resultpane.setVgap(5);
+        
+        ListView<String> probabilities = new ListView();
+        
+        VBox options = new VBox();
+        options.setSpacing(5);
+        options.setPadding(new Insets(10));
+        
+        HBox startingnodebox = new HBox();
+        Label snlabel = new Label("Select starting node: ");
+        Slider startingnodeslider = new Slider(0, 0, 0);
+        startingnodeslider.setBlockIncrement(1);
+        startingnodeslider.setMajorTickUnit(1);
+        startingnodeslider.setMinorTickCount(0);
+        startingnodeslider.setShowTickLabels(true);
+        startingnodeslider.setSnapToTicks(true);
+        
+        startingnodeslider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                    logic.setResultDisplay(new_val.intValue());
+                    listelements(probabilities, logic.getProbabilities());
+            }
+        });
+        
+        startingnodebox.getChildren().setAll(snlabel, startingnodeslider);
+        options.getChildren().setAll(startingnodebox);
+        
+        resultpane.add(probabilities, 0, 0);
+        resultpane.add(options, 1, 0);
+        
+        BorderPane frame3 = new BorderPane();
+        frame3.setCenter(resultpane);
+        frame3.setBottom(buttonfield3);
+        Scene resultscene = new Scene(frame3);
         
         next3.setOnAction(e->{
             logic.evolveCurrentSim(1);
-            listelements(probabilities, logic.getProbabilities(0));
+            listelements(probabilities, logic.getProbabilities());
         });
-        
-        BorderPane frame3 = new BorderPane();
-        frame3.setCenter(probabilities);
-        frame3.setBottom(buttonfield3);
-        Scene resultscene = new Scene(frame3);
         
         //___scene-switch button functionality
         
@@ -173,6 +209,7 @@ public class markovUI extends Application {
         next2.setOnAction(e -> {
             if (!logic.nothingloaded()){
                 logic.initsim();
+                startingnodeslider.setMax(logic.getSize() - 1);
                 window.setScene(resultscene);
             }
         });
