@@ -27,7 +27,7 @@ import javafx.beans.value.ObservableValue;
 public class markovUI extends Application {
     
     public void listelements(ListView<String> view, ArrayList<String> nodes){
-        if (nodes.isEmpty()) return;
+        //if (nodes.isEmpty()) return;
         ObservableList<String> items = FXCollections.observableArrayList(nodes);
         view.setItems(items);
     }
@@ -77,11 +77,13 @@ public class markovUI extends Application {
         // Buttonfield - Bottom
         HBox buttonfield2 = new HBox();
         buttonfield2.setPadding(new Insets(10));
+        buttonfield2.setSpacing(5);
         Button next2 = new Button("run");
         Button back2 = new Button("back");
+        Button clearbutton = new Button("clear");
         Region spacer2 = new Region();
         HBox.setHgrow(spacer2, Priority.ALWAYS);
-        buttonfield2.getChildren().setAll(back2, spacer2, next2);
+        buttonfield2.getChildren().setAll(back2, spacer2, clearbutton, next2);
         
         // Editfield - Center
         GridPane editpane = new GridPane();
@@ -138,6 +140,12 @@ public class markovUI extends Application {
             } else {
                 connectadded.setText("incorrect input!");
             }
+        });
+        
+        clearbutton.setOnAction(e -> {
+            logic.restart();
+            listelements(connectionlist, logic.getConnects());
+            listelements(nodelist, logic.getNodes());     
         });
         
         BorderPane frame2 = new BorderPane();
