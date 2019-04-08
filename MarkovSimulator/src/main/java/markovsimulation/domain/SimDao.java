@@ -5,8 +5,6 @@
  */
 package markovsimulation.domain;
 
-import java.util.HashSet;
-
 public interface SimDao {
     SimDescriptor loadSim();
     SimDescriptor saveSim();
