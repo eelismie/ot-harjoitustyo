@@ -11,71 +11,77 @@ public class markovManager {
     ArrayList<String> nodes;
     ArrayList<ArrayList<Integer>> connections;
     
-    public markovManager(){
+    public markovManager() {
         resultdisplay = 0;
         nodes = new ArrayList<>();
         names = new HashSet<>();
         connections = new ArrayList<>();
     }
     
-    public boolean initsim(){
-        if (nodes.isEmpty()) return false;
+    public boolean initsim() {
+        if (nodes.isEmpty()) {
+            return false;
+        }
         currentsim = new Simulation(nodes, connections);
         return true;
     }
     
-    public void restart(){
+    public void restart() {
         nodes = new ArrayList<>();
         connections = new ArrayList<>();
         currentsim = null;
     }
     
-    public void addNode(String description){
+    public void addNode(String description) {
         String trimmed = description.trim();
         nodes.add(trimmed);
         names.add(trimmed);
         connections.add(new ArrayList<>());
     }
     
-    public boolean addConnect(String begin, String end){
+    public boolean addConnect(String begin, String end) {
         try {
             int a = Integer.parseInt(begin);
             int b = Integer.parseInt(end);
-            boolean valid = (((a < nodes.size()) && (a >= 0))&&((b < nodes.size())&&(b >= 0)));
-            if (valid && (a!=b)){
-                if (connections.get(a).contains(b)) return false;
+            boolean valid = (((a < nodes.size()) && (a >= 0)) && ((b < nodes.size()) && (b >= 0)));
+            if (valid && (a != b)) {
+                if (connections.get(a).contains(b)) {
+                    return false;
+                }
                 connections.get(a).add(b);
                 //connections.get(b).add(a); uncomment this for two-way connections;
                 return true;
             }
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
         return false;
     }
     
-    public boolean nodeExists(String description){
+    public boolean nodeExists(String description) {
         return names.contains(description);
     }
     
-    public boolean nothingloaded(){
+    public boolean nothingloaded() {
         return (nodes.isEmpty());
     }
     
-    public ArrayList getNodes(){
+    public ArrayList getNodes() {
         ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < nodes.size(); i++){
-            result.add(i + " : " +nodes.get(i));
+        for (int i = 0; i < nodes.size(); i++) {
+            result.add(i + " : " + nodes.get(i));
         }
         return result;
     }
     
-    public ArrayList getConnects(){
+    public ArrayList getConnects() {
         ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < connections.size(); i++){
+        for (int i = 0; i < connections.size(); i++) {
             final int a = i;
             ArrayList<Integer> ar = connections.get(i);
-            if (ar.isEmpty()) continue;
+            if (ar.isEmpty()) {
+                continue;
+            }
             ar.forEach((j) -> {
                 result.add(a + " -> " + j.toString());
             });
@@ -83,27 +89,26 @@ public class markovManager {
         return result;
     }
     
-    public ArrayList getProbabilities(){
+    public ArrayList getProbabilities() {
         ArrayList<String> result = new ArrayList<>();
         ArrayList<Double> probs = currentsim.getProbability(resultdisplay);
-        for (int i = 0; i < connections.size(); i++){
+        for (int i = 0; i < connections.size(); i++) {
             result.add(nodes.get(i) + " : " + probs.get(i).toString());
         }
         return result;
     }
     
-    public void evolveCurrentSim(int n){
-        for (int i = 0; i < n; i++){
+    public void evolveCurrentSim(int n) {
+        for (int i = 0; i < n; i++) {
             currentsim.next();
         }
     }
 
-    public void setResultDisplay(int i){
+    public void setResultDisplay(int i) {
         this.resultdisplay = i;
     }
     
-    public int getSize(){
+    public int getSize() {
         return this.nodes.size();
     }
-    
 }

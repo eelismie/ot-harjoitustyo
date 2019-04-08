@@ -1,7 +1,6 @@
 
 import java.util.Arrays;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -28,8 +27,8 @@ public class SimulationTest {
     @Test 
     public void simInitializedCorrectly(){
         double[][] expected = new double[3][3];
-        expected[0][1] = 0.5;
-        expected[0][2] = 0.5;
+        expected[1][0] = 0.5;
+        expected[2][0] = 0.5;
         assertTrue(Arrays.deepEquals(expected, sim.getTransitionMatrix()));
     }
     
