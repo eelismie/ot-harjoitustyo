@@ -6,7 +6,10 @@ import static org.junit.Assert.*;
 
 
 import markovsimulation.simulation.Simulation;
+import markovsimulation.domain.SimDescriptor;
 import java.util.ArrayList;
+import java.util.HashSet;
+
 public class SimulationTest {
     Simulation sim;
     
@@ -18,10 +21,14 @@ public class SimulationTest {
         names.add("Event 1");
         names.add("Event 2");
         names.add("Event 3");
-        for (int i = 0; i < 3; i++){connects.add(new ArrayList<>());};
+        for (int i = 0; i < 3; i++) {
+            connects.add(new ArrayList<>());
+        }
         connects.get(0).add(1);
         connects.get(0).add(2);
-        sim = new Simulation(names, connects);
+        
+        SimDescriptor description = new SimDescriptor(new HashSet<>(), names, connects);
+        sim = new Simulation(description);
     }
     
     @Test 
@@ -42,8 +49,12 @@ public class SimulationTest {
         nodes.add("Event 1");
         nodes.add("Event 2");
         nodes.add("Event 3");
-        for (int i = 0; i < 3; i++){connections.add(new ArrayList<>());};
-        Simulation sim2 = new Simulation(nodes, connections);
+        for (int i = 0; i < 3; i++) { 
+            connections.add(new ArrayList<>());
+        }
+        
+        SimDescriptor description2 = new SimDescriptor(new HashSet<>(), nodes, connections);
+        Simulation sim2 = new Simulation(description2);
         
         double[][] expected = {{1.0, 0.0, 0.0}, {0.0,1.0,0.0}, {0.0,0.0,1.0}};
         assertTrue(Arrays.deepEquals(expected, sim2.getTransitionMatrix()));

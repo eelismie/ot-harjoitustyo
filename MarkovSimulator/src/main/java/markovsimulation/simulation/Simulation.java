@@ -1,5 +1,6 @@
 
 package markovsimulation.simulation;
+import markovsimulation.domain.SimDescriptor;
 import java.util.ArrayList;
 
 public class Simulation {
@@ -8,8 +9,10 @@ public class Simulation {
     double[][] state;
     
     //constructor creates 2d array representation of connections
-    public Simulation(ArrayList<String> names, ArrayList<ArrayList<Integer>> connections) {
-        this.size = names.size();
+    public Simulation(SimDescriptor descriptor) {
+        this.size = descriptor.getNodes().size();
+        ArrayList<ArrayList<Integer>> connections = descriptor.getConnects();
+        
         transition = new double[size][size];
         state = new double[size][size];
         if (size == 0) { 

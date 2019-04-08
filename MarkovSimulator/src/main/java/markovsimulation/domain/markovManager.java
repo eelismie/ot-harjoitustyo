@@ -2,57 +2,48 @@
 package markovsimulation.domain;
 import markovsimulation.simulation.Simulation;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class markovManager {
     int resultdisplay;
     Simulation currentsim;
     SimDescriptor simdetails;
-    HashSet<String> names;
-    ArrayList<String> nodes;
-    ArrayList<ArrayList<Integer>> connections;
-    //
     
     public markovManager() {
         resultdisplay = 0;
         simdetails = new SimDescriptor();
-        nodes = new ArrayList<>();
-        names = new HashSet<>();
-        connections = new ArrayList<>();
     }
     
     public boolean initsim() {
-        if (nodes.isEmpty()) {
+        if (simdetails.getNodes().isEmpty()) {
             return false;
         }
-        currentsim = new Simulation(nodes, connections);
+        currentsim = new Simulation(simdetails);
         return true;
     }
     
     public void restart() {
-        nodes = new ArrayList<>();
-        connections = new ArrayList<>();
+        simdetails = new SimDescriptor();
         currentsim = null;
     }
     
     public void addNode(String description) {
         String trimmed = description.trim();
-        nodes.add(trimmed);
-        names.add(trimmed);
-        connections.add(new ArrayList<>());
+        simdetails.getNodes().add(trimmed);
+        simdetails.getConnects().add(new ArrayList<>());
+        simdetails.getNames().add(trimmed);
     }
     
     public boolean addConnect(String begin, String end) {
         try {
             int a = Integer.parseInt(begin);
             int b = Integer.parseInt(end);
-            boolean valid = (((a < nodes.size()) && (a >= 0)) && ((b < nodes.size()) && (b >= 0)));
+            int nodelen = simdetails.getNodes().size();
+            boolean valid = (((a < nodelen) && (a >= 0)) && ((b < nodelen) && (b >= 0)));
             if (valid && (a != b)) {
-                if (connections.get(a).contains(b)) {
+                if (simdetails.getConnects().get(a).contains(b)) {
                     return false;
                 }
-                connections.get(a).add(b);
-                //connections.get(b).add(a); uncomment this for two-way connections;
+                simdetails.getConnects().get(a).add(b);
                 return true;
             }
         } catch (NumberFormatException e) {
@@ -62,26 +53,30 @@ public class markovManager {
     }
     
     public boolean nodeExists(String description) {
-        return names.contains(description);
+        return simdetails.getNames().contains(description);
     }
     
     public boolean nothingloaded() {
-        return (nodes.isEmpty());
+        if (simdetails == null) {
+            return false;
+        }
+        return (simdetails.getNodes().isEmpty());
     }
     
     public ArrayList getNodes() {
         ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < nodes.size(); i++) {
-            result.add(i + " : " + nodes.get(i));
+        for (int i = 0; i < simdetails.getNodes().size(); i++) {
+            result.add(i + " : " + simdetails.getNodes().get(i));
         }
         return result;
     }
     
     public ArrayList getConnects() {
         ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < connections.size(); i++) {
+        int size = simdetails.getNodes().size();
+        for (int i = 0; i < size; i++) {
             final int a = i;
-            ArrayList<Integer> ar = connections.get(i);
+            ArrayList<Integer> ar = simdetails.getConnects().get(i);
             if (ar.isEmpty()) {
                 continue;
             }
@@ -95,7 +90,9 @@ public class markovManager {
     public ArrayList getProbabilities() {
         ArrayList<String> result = new ArrayList<>();
         ArrayList<Double> probs = currentsim.getProbability(resultdisplay);
-        for (int i = 0; i < connections.size(); i++) {
+        int size = simdetails.getNodes().size();
+        ArrayList<String> nodes = simdetails.getNodes();
+        for (int i = 0; i < size; i++) {
             result.add(nodes.get(i) + " : " + probs.get(i).toString());
         }
         return result;
@@ -112,6 +109,14 @@ public class markovManager {
     }
     
     public int getSize() {
-        return this.nodes.size();
+        return simdetails.getNodes().size();
+    }
+    
+    public Simulation getCurrentSim() {
+        return this.currentsim;
+    }
+    
+    public SimDescriptor getSimDescription() {
+        return this.simdetails;
     }
 }
