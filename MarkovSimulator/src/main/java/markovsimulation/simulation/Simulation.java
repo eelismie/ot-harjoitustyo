@@ -44,11 +44,11 @@ public class Simulation {
         this.state = next;
     }
     
-    public double[][] getTransitionMatrix() {
+    public double[][] getTransitionMatrix() { //needed for tests
         return this.transition;
     }
     
-    public double[][] getStateMatrix() {
+    public double[][] getStateMatrix() { //needed for tests
         return this.state;
     }
     

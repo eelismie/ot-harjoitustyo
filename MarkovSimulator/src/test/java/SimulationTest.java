@@ -29,6 +29,8 @@ public class SimulationTest {
         double[][] expected = new double[3][3];
         expected[1][0] = 0.5;
         expected[2][0] = 0.5;
+        expected[1][1] = 1.0;
+        expected[2][2] = 1.0;
         assertTrue(Arrays.deepEquals(expected, sim.getTransitionMatrix()));
     }
     
@@ -45,6 +47,30 @@ public class SimulationTest {
         
         double[][] expected = {{1.0, 0.0, 0.0}, {0.0,1.0,0.0}, {0.0,0.0,1.0}};
         assertTrue(Arrays.deepEquals(expected, sim2.getTransitionMatrix()));
+    }
+    
+    @Test
+    public void nextWorks() {
+        double[][] expected = new double[3][3];
+        expected[1][0] = 0.5;
+        expected[2][0] = 0.5;
+        expected[1][1] = 1.0;
+        expected[2][2] = 1.0;
+        
+        sim.next();
+        assertTrue(Arrays.deepEquals(expected, sim.getStateMatrix()));
+    }
+    
+    @Test
+    public void getProbsWorks(){
+        ArrayList<Double> expected1 = new ArrayList<>(Arrays.asList(0.0, 0.5, 0.5));
+        ArrayList<Double> expected2 = new ArrayList<>(Arrays.asList(0.0, 1.0, 0.0));
+        ArrayList<Double> expected3 = new ArrayList<>(Arrays.asList(0.0, 0.0, 1.0));
+        
+        sim.next();
+        assertTrue(expected1.equals(sim.getProbability(0)));
+        assertTrue(expected2.equals(sim.getProbability(1)));
+        assertTrue(expected3.equals(sim.getProbability(2)));
     }
         
 }

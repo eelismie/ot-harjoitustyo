@@ -7,12 +7,15 @@ import java.util.HashSet;
 public class markovManager {
     int resultdisplay;
     Simulation currentsim;
+    SimDescriptor simdetails;
     HashSet<String> names;
     ArrayList<String> nodes;
     ArrayList<ArrayList<Integer>> connections;
+    //
     
     public markovManager() {
         resultdisplay = 0;
+        simdetails = new SimDescriptor();
         nodes = new ArrayList<>();
         names = new HashSet<>();
         connections = new ArrayList<>();
