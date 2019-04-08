@@ -9,7 +9,7 @@ public class SimDescriptor {
     ArrayList<String> nodes;
     ArrayList<ArrayList<Integer>> connections;
     
-    public SimDescriptor(){
+    public SimDescriptor() {
         names = new HashSet<>();
         nodes = new ArrayList<>();
         connections = new ArrayList<>();
