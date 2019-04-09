@@ -7,17 +7,7 @@ You will then be in the load screen. In the load screen you can load a simulatio
 The file must be a .csv file with an empty first line, a line with the numbern of nodes (int), and then the names 
 of the nodes on the next n lines. After this the connections between nodes are given. Invalid connections are ignored. 
 
-Example .csv:
-
-\n
-3\n
-event1\n
-event2\n
-event3\n
-0,1\n
-1,2\n
-2,0\n
-0,2\n
+[Example csv](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/sample.csv)
 
 You can add nodes into the network by writing into the left hand box and pressing "add" on the edit screen and clear it, if necessary.
 Add connections between these nodes by providing their indices, then pressing "add". 
