@@ -10,12 +10,19 @@ of the nodes on the next n lines. After this the connections between nodes are g
 Example .csv:
 
 3
+
 event1
+
 event2
+
 event3
+
 0,1
+
 1,2
+
 2,0
+
 0,2
 
 You can add nodes into the network by writing into the left hand box and pressing "add" on the edit screen and clear it, if necessary.
