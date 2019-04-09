@@ -63,9 +63,8 @@ public class markovUI extends Application {
         HBox textinput1 = new HBox();
         textinput1.setSpacing(5);
         Button loadbutton = new Button("load from csv");
-        TextField filelocation = new TextField();
-        Label loadlabel = new Label("Simulation file location: ");
-        textinput1.getChildren().setAll(loadlabel, filelocation, loadbutton);
+        Label loadlabel = new Label("Load existing simulation:");
+        textinput1.getChildren().setAll(loadlabel, loadbutton);
         inputfield1.getChildren().setAll(textinput1);
 
         FileChooser filechooser = new FileChooser();
@@ -76,8 +75,10 @@ public class markovUI extends Application {
             if (file != null){
                 if (logic.loadsim(file)) {
                     System.out.println("File loaded!");
+                    loadbutton.setStyle("-fx-background-color: #70ff74; ");
                 } else {
                     System.out.println("File load error!");
+                    loadbutton.setStyle("-fx-background-color: #ff7070; ");
                 };
             }
         });
