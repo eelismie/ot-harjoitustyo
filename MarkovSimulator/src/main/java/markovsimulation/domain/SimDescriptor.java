@@ -9,6 +9,7 @@ public class SimDescriptor {
     ArrayList<String> nodes;
     ArrayList<ArrayList<Integer>> connections;
     
+<<<<<<< HEAD
     public SimDescriptor(){
         this.names = new HashSet<>();
         this.nodes = new ArrayList<>();
@@ -19,6 +20,12 @@ public class SimDescriptor {
         this.names = names;
         this.nodes = nodes;
         this.connections = connections;
+=======
+    public SimDescriptor() {
+        names = new HashSet<>();
+        nodes = new ArrayList<>();
+        connections = new ArrayList<>();
+>>>>>>> a3fb8ed664c462cb5b4758e05b104579ee7fa87f
     }
     
     public void empty() {

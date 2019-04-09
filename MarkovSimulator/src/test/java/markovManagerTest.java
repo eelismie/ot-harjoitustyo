@@ -5,11 +5,7 @@
  */
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import markovsimulation.domain.markovManager;
@@ -40,11 +36,4 @@ public class markovManagerTest {
         a.add("event2");
         a.add("event3");
     }
-    
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }
