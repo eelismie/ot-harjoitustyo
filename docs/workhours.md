@@ -13,13 +13,19 @@
 ### April 1 - April 2
 + Adding functionality: ~ 3 hours
 
-
+## Week 3
 ### April 5
-+ UI tweaks ~ 1.5 hours
++ Added listview of nodes and connections ~ 1.5 hours
 
 ### April 6
 + Added slider for selecting starter node in results screen ~ 1 hour 
 
+### April 8
++ Added simDescriptor class to aid with IO ~ 2 hours
++ Can clear simulation ~ 0.5 hours 
+
+### April 9
++ Added basic DAO class SimFromFile for reading simulation from CSV files + file selector ~ 4 hours
 
 ## Total 
-17 hours
+27 hours
