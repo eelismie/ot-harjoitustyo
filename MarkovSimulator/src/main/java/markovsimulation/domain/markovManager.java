@@ -2,11 +2,8 @@
 package markovsimulation.domain;
 
 import java.io.File;
-import java.io.IOException;
 import markovsimulation.simulation.Simulation;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class markovManager {
     int resultdisplay;
@@ -109,15 +106,19 @@ public class markovManager {
         }
     }
     
-    public boolean loadsim(File file){
+    public boolean loadsim(File file) {
         SimFromFile filereader = new SimFromFile();
         try {
             SimDescriptor read = filereader.loadSim(file);
-            
+            this.simdetails = read;
+            if (this.simdetails == null) {
+                System.out.println("simdetails null");
+                return false;
+            }
+            return true;
         } catch (Exception ex) {
             return false;
         }
-        return false;
     }
 
     public void setResultDisplay(int i) {

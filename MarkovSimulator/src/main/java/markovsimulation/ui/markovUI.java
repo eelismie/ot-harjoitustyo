@@ -25,8 +25,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class markovUI extends Application {
@@ -79,10 +77,11 @@ public class markovUI extends Application {
                 if (logic.loadsim(file)) {
                     System.out.println("File loaded!");
                 } else {
-                    System.out.println("Parsing error!");
+                    System.out.println("File load error!");
                 };
             }
         });
+        
         //Load scene Root
         BorderPane frame1 = new BorderPane();
         frame1.setBottom(buttonfield1);
@@ -229,6 +228,8 @@ public class markovUI extends Application {
         //___scene-switch button functionality
         
         next1.setOnAction(e -> {
+            listelements(nodelist, logic.getNodes());
+            listelements(connectionlist, logic.getConnects());
             window.setScene(editscene);
         });
         
