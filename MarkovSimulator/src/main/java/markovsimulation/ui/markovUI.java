@@ -1,6 +1,7 @@
 package markovsimulation.ui;
 
 import java.util.ArrayList;
+import java.io.File;
 import markovsimulation.domain.markovManager;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -19,15 +20,18 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 public class markovUI extends Application {
     
     public void listelements(ListView<String> view, ArrayList<String> nodes){
-        //if (nodes.isEmpty()) return;
         ObservableList<String> items = FXCollections.observableArrayList(nodes);
         view.setItems(items);
     }
@@ -46,6 +50,7 @@ public class markovUI extends Application {
         //buttonfield - Bottom
         HBox buttonfield1 = new HBox();
         buttonfield1.setPadding(new Insets(10));
+        buttonfield1.setAlignment(Pos.CENTER);
         Button next1 = new Button("next");
         Button back1 = new Button("quit");
         Region spacer = new Region();
@@ -59,12 +64,25 @@ public class markovUI extends Application {
         
         HBox textinput1 = new HBox();
         textinput1.setSpacing(5);
-        Button loadbutton = new Button("load");
+        Button loadbutton = new Button("load from csv");
         TextField filelocation = new TextField();
         Label loadlabel = new Label("Simulation file location: ");
         textinput1.getChildren().setAll(loadlabel, filelocation, loadbutton);
         inputfield1.getChildren().setAll(textinput1);
+
+        FileChooser filechooser = new FileChooser();
+        filechooser.getExtensionFilters().add(new ExtensionFilter("CSV", "*.csv"));
         
+        loadbutton.setOnAction(e -> {
+            File file = filechooser.showOpenDialog(window);
+            if (file != null){
+                if (logic.loadsim(file)) {
+                    System.out.println("File loaded!");
+                } else {
+                    System.out.println("Parsing error!");
+                };
+            }
+        });
         //Load scene Root
         BorderPane frame1 = new BorderPane();
         frame1.setBottom(buttonfield1);

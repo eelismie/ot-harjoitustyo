@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package markovsimulation.domain;
 
+import java.io.File;
+
 public interface SimDao {
-    SimDescriptor loadSim();
-    SimDescriptor saveSim();
+    SimDescriptor loadSim(File file) throws Exception;
+    SimDescriptor saveSim(File file) throws Exception;
 }
 
