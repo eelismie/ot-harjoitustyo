@@ -10,3 +10,6 @@ A markov process is a weighted network model of a stochastic system, where the n
 
 [User Manual for Current Version](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/usermanual.md)
 
+[Architecture description](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/architecture.md)
+
+
