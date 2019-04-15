@@ -119,9 +119,9 @@ public class markovManager {
     }
     
     public boolean loadsim(File file) {
-        SimFromFile filereader = new SimFromFile();
+        SimFromFile filereader = new SimFromFile(file);
         try {
-            SimDescriptor read = filereader.loadSim(file);
+            SimDescriptor read = filereader.loadSim();
             this.simdetails = read;
             if (this.simdetails == null) {
                 System.out.println("simdetails null");
