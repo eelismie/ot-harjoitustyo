@@ -5,7 +5,6 @@ import au.com.bytecode.opencsv.CSVReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 public class SimFromFile implements SimDao { 

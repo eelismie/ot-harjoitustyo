@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -74,10 +75,8 @@ public class markovUI extends Application {
             File file = filechooser.showOpenDialog(window);
             if (file != null){
                 if (logic.loadsim(file)) {
-                    System.out.println("File loaded!");
                     loadbutton.setStyle("-fx-background-color: #70ff74; ");
                 } else {
-                    System.out.println("File load error!");
                     loadbutton.setStyle("-fx-background-color: #ff7070; ");
                 };
             }
@@ -202,6 +201,14 @@ public class markovUI extends Application {
         startingnodeslider.setShowTickLabels(true);
         startingnodeslider.setSnapToTicks(true);
         
+        HBox allowjumpsbox = new HBox();
+        Label ajlabel = new Label("Allow jumps: ");
+        Slider jumpprobslider = new Slider(0, 1.0, 0);
+        jumpprobslider.setMajorTickUnit(0.2);
+        jumpprobslider.setMinorTickCount(3);
+        jumpprobslider.setShowTickLabels(true);
+        CheckBox jumpcheckbox = new CheckBox();
+        
         startingnodeslider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                 Number old_val, Number new_val) {
@@ -210,8 +217,14 @@ public class markovUI extends Application {
             }
         });
         
+        jumpcheckbox.setOnAction(e -> {
+            boolean val = jumpcheckbox.isSelected();
+            logic.addJumps(val, jumpprobslider.valueProperty().doubleValue());
+        });
+        
         startingnodebox.getChildren().setAll(snlabel, startingnodeslider);
-        options.getChildren().setAll(startingnodebox);
+        allowjumpsbox.getChildren().setAll(ajlabel, jumpprobslider, jumpcheckbox);
+        options.getChildren().setAll(startingnodebox, allowjumpsbox);
         
         resultpane.add(probabilities, 0, 0);
         resultpane.add(options, 1, 0);

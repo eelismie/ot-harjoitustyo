@@ -3,15 +3,19 @@ package markovsimulation.domain;
 
 import java.io.File;
 import markovsimulation.simulation.Simulation;
+import markovsimulation.simulation.SimHelper;
 import java.util.ArrayList;
 
 public class markovManager {
     int resultdisplay;
+    boolean resultsort;
     Simulation currentsim;
+    SimHelper helper;
     SimDescriptor simdetails;
     
     public markovManager() {
         resultdisplay = 0;
+        resultsort = false;
         simdetails = new SimDescriptor();
     }
     
@@ -20,6 +24,7 @@ public class markovManager {
             return false;
         }
         currentsim = new Simulation(simdetails);
+        helper = new SimHelper(currentsim);
         return true;
     }
     
@@ -90,10 +95,17 @@ public class markovManager {
     }
     
     public ArrayList getProbabilities() {
-        ArrayList<String> result = new ArrayList<>();
-        ArrayList<Double> probs = currentsim.getProbability(resultdisplay);
         int size = simdetails.getNodes().size();
-        ArrayList<String> nodes = simdetails.getNodes();
+        ArrayList<String> result = new ArrayList<>();
+        ArrayList<Double> probs;
+        ArrayList<String> nodes; 
+        if (!resultsort) {
+            nodes = simdetails.getNodes();
+            probs = currentsim.getProbability(resultdisplay);
+        } else {
+            nodes = simdetails.getNodes();
+            probs = currentsim.getProbability(resultdisplay);
+        }
         for (int i = 0; i < size; i++) {
             result.add(nodes.get(i) + " : " + probs.get(i).toString());
         }
@@ -120,7 +132,19 @@ public class markovManager {
             return false;
         }
     }
-
+    
+    public void setSort(boolean val) {
+        resultsort = val;
+    }
+    
+    public void addJumps(boolean allow, double beta) {
+        if (allow){
+            helper.allowJumps(currentsim, beta);
+        } else {
+            helper.disallowJumps(currentsim);
+        }
+    }
+    
     public void setResultDisplay(int i) {
         this.resultdisplay = i;
     }
