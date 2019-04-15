@@ -71,7 +71,7 @@ public class SimFromFile implements SimDao {
     }
 
     @Override
-    public boolean saveSim(SimDescriptor sim) throws Exception {
+    public void saveSim(SimDescriptor sim) throws Exception {
         ArrayList<String> nodes = sim.getNodes();
         ArrayList<ArrayList<Integer>> connects = sim.getConnects();
         int size = nodes.size();
@@ -92,6 +92,5 @@ public class SimFromFile implements SimDao {
         
         CSVWriter writer = new CSVWriter(new FileWriter(location));
         writer.writeAll(lines);
-        return true;
     }
 }

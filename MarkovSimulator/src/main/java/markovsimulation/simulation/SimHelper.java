@@ -6,6 +6,7 @@
 package markovsimulation.simulation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SimHelper {
     double[][] savedstate;
@@ -22,9 +23,10 @@ public class SimHelper {
         for (int i = 0; i < size; i++)  {
             for (int j = 0; j < size; j++) {
                 // causes probabilities to lose normalization
-                newstate[i][j] = (1.0 - beta) * savedstate[i][j] + beta * (1 / size);
+                newstate[i][j] = (1 - beta) * savedstate[i][j] + beta * (1.0 / (float) size);
             }
         }
+        System.out.println(Arrays.deepToString(newstate));
         sim.transition = newstate;
     }
     

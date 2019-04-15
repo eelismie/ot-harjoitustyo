@@ -133,6 +133,19 @@ public class markovManager {
         }
     }
     
+    public boolean savesim(File file) {
+        if (file == null) {
+            return false;
+        }
+        SimFromFile saver = new SimFromFile(file);
+        try {
+            saver.saveSim(simdetails);
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+    
     public void setSort(boolean val) {
         resultsort = val;
     }
