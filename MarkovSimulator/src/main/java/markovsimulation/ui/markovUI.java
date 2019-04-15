@@ -108,6 +108,7 @@ public class markovUI extends Application {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showSaveDialog(window);
+            System.out.println(file.toString());
             logic.savesim(file);
         });
         

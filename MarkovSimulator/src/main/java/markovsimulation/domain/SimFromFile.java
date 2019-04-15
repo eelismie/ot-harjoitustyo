@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -78,9 +79,11 @@ public class SimFromFile implements SimDao {
         
         List<String[]> lines = new ArrayList<>();
         String[] line1 = {Integer.toString(size)};
+        System.out.println(Arrays.toString(line1));
         lines.add(line1);
         for (String node : nodes) {
             String[] line = {node};
+            System.out.println(Arrays.toString(line));
             lines.add(line);
         }
         for (int i = 0; i < size; i++) {
