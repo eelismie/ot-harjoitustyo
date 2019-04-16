@@ -108,7 +108,6 @@ public class markovUI extends Application {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showSaveDialog(window);
-            System.out.println(file.toString());
             logic.savesim(file);
         });
         
@@ -203,6 +202,7 @@ public class markovUI extends Application {
         options.setPadding(new Insets(10));
         
         HBox startingnodebox = new HBox();
+        startingnodebox.setAlignment(Pos.CENTER_RIGHT);
         Label snlabel = new Label("Select starting node: ");
         Slider startingnodeslider = new Slider(0, 0, 0);
         startingnodeslider.setBlockIncrement(1);
@@ -212,12 +212,12 @@ public class markovUI extends Application {
         startingnodeslider.setSnapToTicks(true);
         
         HBox allowjumpsbox = new HBox();
+        allowjumpsbox.setAlignment(Pos.CENTER_RIGHT);
         Label ajlabel = new Label("Allow jumps: ");
         Slider jumpprobslider = new Slider(0, 1.0, 0);
         jumpprobslider.setMajorTickUnit(0.2);
         jumpprobslider.setMinorTickCount(3);
         jumpprobslider.setShowTickLabels(true);
-        CheckBox jumpcheckbox = new CheckBox();
         
         startingnodeslider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
@@ -227,13 +227,15 @@ public class markovUI extends Application {
             }
         });
         
-        jumpcheckbox.setOnAction(e -> {
-            boolean val = jumpcheckbox.isSelected();
-            logic.addJumps(val, jumpprobslider.valueProperty().doubleValue());
+        jumpprobslider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                    logic.addJumps(new_val.doubleValue());
+            }
         });
         
         startingnodebox.getChildren().setAll(snlabel, startingnodeslider);
-        allowjumpsbox.getChildren().setAll(ajlabel, jumpprobslider, jumpcheckbox);
+        allowjumpsbox.getChildren().setAll(ajlabel, jumpprobslider);
         options.getChildren().setAll(startingnodebox, allowjumpsbox);
         
         resultpane.add(probabilities, 0, 0);

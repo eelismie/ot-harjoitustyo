@@ -150,8 +150,8 @@ public class markovManager {
         resultsort = val;
     }
     
-    public void addJumps(boolean allow, double beta) {
-        if (allow){
+    public void addJumps(double beta) {
+        if (beta > 0.01){
             helper.allowJumps(currentsim, beta);
         } else {
             helper.disallowJumps(currentsim);

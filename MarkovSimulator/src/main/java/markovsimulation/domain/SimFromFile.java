@@ -94,6 +94,8 @@ public class SimFromFile implements SimDao {
         }
         
         CSVWriter writer = new CSVWriter(new FileWriter(location));
-        writer.writeAll(lines);
+        for (String[] line : lines){
+            writer.writeNext(line);
+        }
     }
 }
