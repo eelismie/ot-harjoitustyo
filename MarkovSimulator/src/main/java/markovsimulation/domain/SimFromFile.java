@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -52,8 +51,6 @@ public class SimFromFile implements SimDao {
             if ((nextLine != null) && (nextLine.length == 2)) {
                 String start = nextLine[0];
                 String end = nextLine[1];
-                System.out.println(start);
-                System.out.println(end);
                 try {
                     int a = Integer.parseInt(start);
                     int b = Integer.parseInt(end);
@@ -68,6 +65,7 @@ public class SimFromFile implements SimDao {
                 }
             }
         }
+        reader.close();
         return new SimDescriptor(names, nodes, connections);
     }
 
@@ -78,14 +76,17 @@ public class SimFromFile implements SimDao {
         int size = nodes.size();
         
         List<String[]> lines = new ArrayList<>();
+        
+        String[] line0 = {""}; 
         String[] line1 = {Integer.toString(size)};
-        System.out.println(Arrays.toString(line1));
+        lines.add(line0);
         lines.add(line1);
+        
         for (String node : nodes) {
             String[] line = {node};
-            System.out.println(Arrays.toString(line));
             lines.add(line);
         }
+        
         for (int i = 0; i < size; i++) {
             for (Integer connect : connects.get(i)) {
                 String[] line = {Integer.toString(i), Integer.toString(connect)};
@@ -93,9 +94,10 @@ public class SimFromFile implements SimDao {
             }
         }
         
-        CSVWriter writer = new CSVWriter(new FileWriter(location));
-        for (String[] line : lines){
-            writer.writeNext(line);
+        try (CSVWriter writer = new CSVWriter(new FileWriter(location))) {
+            for (String[] line : lines){
+                writer.writeNext(line);
+            }
         }
     }
 }

@@ -35,6 +35,9 @@ public class markovManager {
     
     public void addNode(String description) {
         String trimmed = description.trim();
+        if (nodeExists(trimmed)) {
+            return;
+        }
         simdetails.getNodes().add(trimmed);
         simdetails.getConnects().add(new ArrayList<>());
         simdetails.getNames().add(trimmed);
@@ -129,6 +132,7 @@ public class markovManager {
             }
             return true;
         } catch (Exception ex) {
+            System.out.println(ex);
             return false;
         }
     }
@@ -142,6 +146,7 @@ public class markovManager {
             saver.saveSim(simdetails);
             return true;
         } catch (Exception ex) {
+            System.out.println(ex);
             return false;
         }
     }

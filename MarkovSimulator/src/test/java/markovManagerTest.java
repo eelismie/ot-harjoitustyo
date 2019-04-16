@@ -67,4 +67,10 @@ public class markovManagerTest {
         manager.setResultDisplay(1);
         assertTrue(expected2.equals(manager.getProbabilities()));
     }
+    
+    public void nodeExistWorks() {
+        manager.addNode("  event1  ");
+        assertTrue(manager.nodeExists("event1"));
+        assertTrue(!manager.nodeExists("this one doesn't"));
+    }
 }
