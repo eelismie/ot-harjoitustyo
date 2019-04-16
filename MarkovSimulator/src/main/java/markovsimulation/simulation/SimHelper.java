@@ -25,18 +25,7 @@ public class SimHelper {
                 newstate[i][j] = (1 - beta) * savedstate[i][j] + beta * (1.0 / (float) size);
             }
         }
-        System.out.println(Arrays.deepToString(newstate));
         sim.transition = newstate;
-    }
-    
-    public ArrayList<Double> sortedProbs(Simulation sim, int index) {
-        int size = sim.size;
-        double[][] state = sim.state;
-        ArrayList<Double> result = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            result.add(state[i][index]);
-        }
-        return result;
     }
     
     public void disallowJumps(Simulation sim) {
@@ -45,5 +34,13 @@ public class SimHelper {
     
     public void recoverstate(Simulation sim) {
         sim.state = savedstate;
+    }
+    
+    public double[][] getsave() {
+        return this.savedstate;
+    }
+    
+    public double[][] gettransition() {
+        return this.savedtransition;
     }
 }

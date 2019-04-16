@@ -100,18 +100,12 @@ public class markovManager {
     public ArrayList getProbabilities() {
         int size = simdetails.getNodes().size();
         ArrayList<String> result = new ArrayList<>();
-        ArrayList<Double> probs;
-        ArrayList<String> nodes; 
-        if (!resultsort) {
-            nodes = simdetails.getNodes();
-            probs = currentsim.getProbability(resultdisplay);
-        } else {
-            nodes = simdetails.getNodes();
-            probs = currentsim.getProbability(resultdisplay);
-        }
+        ArrayList<Double> probs = currentsim.getProbability(resultdisplay);
+        ArrayList<String> nodes = simdetails.getNodes(); 
+        
         for (int i = 0; i < size; i++) {
             result.add(nodes.get(i) + " : " + probs.get(i).toString());
-        }
+        }       
         return result;
     }
     
