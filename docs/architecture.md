@@ -4,3 +4,7 @@ by the markovManager class. Simulation descriptions are contained in simDescript
 The simulation itself is contained in the simulation class. 
 
 ![Architecture](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/Architecture.png)
+
+When the user presses the 'next' button in the result display, the following sequence occurs. The final result is that the current simulation state has advanced by n steps, and the results of taking these steps are displayed to the user.
+
+![Sequence](https://github.com/volatilequark/ot-harjoitustyo/edit/master/docs/simsequence.png)
