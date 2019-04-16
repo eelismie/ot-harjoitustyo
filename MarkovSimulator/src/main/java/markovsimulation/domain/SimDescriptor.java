@@ -15,7 +15,7 @@ public class SimDescriptor {
         this.connections = new ArrayList<>();
     }
     
-    public SimDescriptor(HashSet names, ArrayList nodes, ArrayList connections){
+    public SimDescriptor(HashSet names, ArrayList nodes, ArrayList connections) {
         this.names = names;
         this.nodes = nodes;
         this.connections = connections;

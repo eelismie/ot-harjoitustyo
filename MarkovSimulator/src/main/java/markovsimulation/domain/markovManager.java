@@ -156,7 +156,7 @@ public class markovManager {
     }
     
     public void addJumps(double beta) {
-        if (beta > 0.01){
+        if (beta > 0.01) {
             helper.allowJumps(currentsim, beta);
         } else {
             helper.disallowJumps(currentsim);

@@ -12,7 +12,7 @@ public class SimHelper {
     double[][] savedstate;
     double[][] savedtransition;
     
-    public SimHelper(Simulation sim){
+    public SimHelper(Simulation sim) {
         savedstate = sim.state;
         savedtransition = sim.transition;
     }

@@ -13,7 +13,7 @@ import java.util.List;
 public class SimFromFile implements SimDao { 
     File location;
     
-    public SimFromFile(File file){
+    public SimFromFile(File file) {
         location = file;
     }
 
@@ -45,7 +45,6 @@ public class SimFromFile implements SimDao {
                 names.add(nextLine[0]);
             }
         }
-        assert (size == nodes.size());
         
         while ((nextLine = reader.readNext()) != null) {
             if ((nextLine != null) && (nextLine.length == 2)) {
@@ -73,29 +72,23 @@ public class SimFromFile implements SimDao {
     public void saveSim(SimDescriptor sim) throws Exception {
         ArrayList<String> nodes = sim.getNodes();
         ArrayList<ArrayList<Integer>> connects = sim.getConnects();
-        int size = nodes.size();
-        
         List<String[]> lines = new ArrayList<>();
-        
         String[] line0 = {""}; 
-        String[] line1 = {Integer.toString(size)};
+        String[] line1 = {Integer.toString(nodes.size())};
         lines.add(line0);
         lines.add(line1);
-        
         for (String node : nodes) {
             String[] line = {node};
             lines.add(line);
         }
-        
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < nodes.size(); i++) {
             for (Integer connect : connects.get(i)) {
                 String[] line = {Integer.toString(i), Integer.toString(connect)};
                 lines.add(line);
             }
         }
-        
         try (CSVWriter writer = new CSVWriter(new FileWriter(location))) {
-            for (String[] line : lines){
+            for (String[] line : lines) {
                 writer.writeNext(line);
             }
         }
