@@ -1,8 +1,13 @@
 ## How to use the current version of the UI 
 
 To run, give the command:
+```
 mvn compile exec:java -Dexec.mainClass=markovsimulation.ui.markovUI
-
+```
+Or, alternatively run the .jar with:
+```
+java -jar markovsimV1.jar
+```
 You will then be in the load screen. In the load screen you can load a simulation from the file selector from your computer. In the future you can hopefully also load data from google sheets.
 The file must be a .csv file with an empty first line, a line with the numbern of nodes (int), and then the names 
 of the nodes on the next n lines. After this the connections between nodes are given. Invalid connections are ignored. 
@@ -14,5 +19,8 @@ Add connections between these nodes by providing their indices, then pressing "a
 The connection wont be added if the input is bad. 
 
 When you have created nodes you can press "run".
-After this you can view the effects of one step on the probabilities. You can select the starting node with a slider. In the future the results can hopefully be viewed as a network.
+After this you can view the effects of one step on the probabilities. You can select the starting node with a slider. You can enable the random walk to perform jumps with the slider below it. In the future the results can hopefully be viewed as a network.
+
+To save the current simulation configuration, press "save" in the edit screen. File overwriting doesn't yet function, so when saving one must always create a new file. The .csv file ending has to be written explicitly, otherwise it can't be identified as a csv file in the loading screen. In the future this will be fixed.
+
 

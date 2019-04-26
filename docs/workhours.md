@@ -27,5 +27,14 @@
 ### April 9
 + Added basic DAO class SimFromFile for reading simulation from CSV files + file selector ~ 4 hours
 
+## Week 4
+### April 15
++ Added SimHelper class and ability to allow jumps in simulation~ 2 hours
++ Added simple load functionality ~ 1 hour
+
+### April 16
++ Added simple save functionality ~ 1 hour
++ Tests and other tweaks ~ 2 hours
+
 ## Total 
-27 hours
+33 hours
