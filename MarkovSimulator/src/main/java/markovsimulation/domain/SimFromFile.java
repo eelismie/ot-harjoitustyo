@@ -23,7 +23,7 @@ public class SimFromFile implements SimDao {
     
     /**
      * Create SimDescriptor from File 
-     * @return SimDescriptor
+     * @return SimDescriptor simulation details
      * @throws Exception 
      */
 
@@ -47,6 +47,12 @@ public class SimFromFile implements SimDao {
         }
         return new SimDescriptor(names, nodes, connections);
     }
+    
+    /**
+     * Method for saving simulation to file stored in this class 
+     * @param sim simulation to be saved
+     * @throws Exception 
+     */
 
     @Override
     public void saveSim(SimDescriptor sim) throws Exception {
@@ -60,8 +66,8 @@ public class SimFromFile implements SimDao {
     
     /**
      * Helper method used to generate a list of String arrays from SimDescriptor
-     * @param sim
-     * @return lines
+     * @param sim Simulation to generate lines for
+     * @return lines List of string arrays 
      */
     
     private List<String[]> generateLines(SimDescriptor sim) {
@@ -82,6 +88,12 @@ public class SimFromFile implements SimDao {
         }        
         return lines;
     }
+    
+    /**
+     * Method for reading the lines of the file in this class 
+     * @return lines list of String arrays 
+     * @throws IOException 
+     */
     
     private List<String[]> getLines() throws IOException {
         List<String[]> lines = new ArrayList<>();

@@ -3,12 +3,19 @@ package markovsimulation.simulation;
 import markovsimulation.domain.SimDescriptor;
 import java.util.ArrayList;
 
+/**
+ * Class for running simulations
+ * @author eelismie
+ */
+
 public class Simulation {
     int size;
     double[][] transition;
     double[][] state;
-    
-    //constructor creates 2d array representation of connections
+    /**
+     * Constructor that creates 2d array representation of connections for running simulation
+     * @param descriptor Simulation to turn into sim object
+     */
     public Simulation(SimDescriptor descriptor) {
         this.size = descriptor.getNodes().size();
         ArrayList<ArrayList<Integer>> connections = descriptor.getConnects();
@@ -31,8 +38,9 @@ public class Simulation {
         }
         state = transition;
     }
-    
-    //method for evolving the current state by step
+    /**
+     * method for evolving the current state by step
+     */
     public void next() {
         double[][] next = new double[size][size];
         for (int i = 0; i < size; i++) {
@@ -54,6 +62,12 @@ public class Simulation {
     public double[][] getStateMatrix() { //needed for tests
         return this.state;
     }
+    
+    /**
+     * Returns probabilities for each node for given starting index 
+     * @param index starting node index
+     * @return result
+     */
     
     public ArrayList<Double> getProbability(int index) {
         ArrayList<Double> result = new ArrayList<>();

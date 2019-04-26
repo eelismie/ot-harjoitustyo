@@ -24,6 +24,11 @@ public class markovManager {
         simDetails = new SimDescriptor();
     }
     
+    /**
+     * Simulation initialisation class
+     * @return boolean success value 
+     */
+    
     public boolean initSim() {
         if (simDetails.getNodes().isEmpty()) {
             return false;
@@ -33,10 +38,19 @@ public class markovManager {
         return true;
     }
     
+    /**
+     * Method for emptying simulation details
+     */
+    
     public void restart() {
         simDetails = new SimDescriptor();
         currentSim = null;
     }
+    
+    /**
+     * Adds trimmed version of node description to list of nodes, if it doesn't already exist.
+     * @param description String describing node
+     */
     
     public void addNode(String description) {
         String trimmed = description.trim();
@@ -51,9 +65,9 @@ public class markovManager {
     /**
      * method for adding connections to current loaded simulation.
      * 
-     * @param begin
-     * @param end
-     * @return success 
+     * @param begin String describing beginning index of connection
+     * @param end String describing ending index of connection
+     * @return boolean success value
      */
     
     public boolean addConnect(String begin, String end) {
@@ -74,6 +88,12 @@ public class markovManager {
         }
         return false;
     }
+    
+    /**
+     * Method for checking if a certain node is already in the network
+     * @param description nodename to be checked
+     * @return 
+     */
     
     public boolean nodeExists(String description) {
         return simDetails.getNames().contains(description);
@@ -98,6 +118,11 @@ public class markovManager {
         }
         return result;
     }
+    
+    /**
+     * Returns ArryList of Strings that describe connections in the network
+     * @return result  
+     */
     
     public ArrayList getConnects() {
         ArrayList<String> result = new ArrayList<>();

@@ -35,11 +35,16 @@ public class SimHelper {
 
     /**
      * recovers the original transition matrix for sim from the state saved in this helper.
-     * @param sim 
+     * @param sim simulation to recover state for 
      */
     public void disallowJumps(Simulation sim) {
         sim.transition = savedTransition;
     }
+    
+    /**
+     * recovers the state matrix of sim
+     * @param sim simulation to recover
+     */
     
     public void recoverstate(Simulation sim) {
         sim.state = savedState;
