@@ -36,5 +36,10 @@
 + Added simple save functionality ~ 1 hour
 + Tests and other tweaks ~ 2 hours
 
+## Week 5
+### April 26
++ Code cleaning and tweaks ~ 2 hours
++ Javadoc added ~ 1 hour
+
 ## Total 
-33 hours
+36 hours
