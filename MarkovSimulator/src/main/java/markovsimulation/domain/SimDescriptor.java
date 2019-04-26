@@ -4,6 +4,11 @@ package markovsimulation.domain;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+/**
+ * Class used for the encapsulation of all necessary simulation details
+ * @author eelismie
+ */
+
 public class SimDescriptor {
     HashSet<String> names;
     ArrayList<String> nodes;
@@ -20,6 +25,10 @@ public class SimDescriptor {
         this.nodes = nodes;
         this.connections = connections;
     }
+    
+    /**
+     * Method used to empy the memory of the object. 
+     */
      
     public void empty() {
         nodes = new ArrayList<>();

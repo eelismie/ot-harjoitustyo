@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.Before;
@@ -61,7 +58,7 @@ public class markovManagerTest {
         manager.addNode("event3");
         manager.addConnect("0", "1");
         manager.addConnect("0", "2");
-        manager.initsim();
+        manager.initSim();
         manager.evolveCurrentSim(1);
         assertTrue(expected.equals(manager.getProbabilities()));
         manager.setResultDisplay(1);
@@ -77,12 +74,7 @@ public class markovManagerTest {
     
     @Test
     public void canaddJumps() {
-        manager.addNode("event1");
-        manager.addNode("event2");
-        manager.addNode("event3");
-        manager.addConnect("0", "1");
-        manager.addConnect("0", "2");
-        manager.initsim();
+        createNet();
         manager.addJumps(1.0);
         double val = 1.0 / 3.0;
         double[][] expected = {{val, val, val}, {val, val, val}, {val, val, val}};
@@ -94,12 +86,7 @@ public class markovManagerTest {
     
     @Test
     public void getConnectsOk() {
-        manager.addNode("event1");
-        manager.addNode("event2");
-        manager.addNode("event3");
-        manager.addConnect("0", "1");
-        manager.addConnect("0", "2");
-        manager.initsim();
+        createNet();
         ArrayList<String> expected = new ArrayList<>();
         expected.add("0 -> 1");
         expected.add("0 -> 2");
@@ -108,17 +95,31 @@ public class markovManagerTest {
     
     @Test
     public void getProbabilitiesOk() {
-        manager.addNode("event1");
-        manager.addNode("event2");
-        manager.addNode("event3");
-        manager.addConnect("0", "1");
-        manager.addConnect("0", "2");
-        manager.initsim();
+        createNet();
         ArrayList<String> expected = new ArrayList<>();
         expected.add("event1 : 0.0");
         expected.add("event2 : 0.5");
         expected.add("event3 : 0.5");
         ArrayList<String> received = manager.getProbabilities();
         assertTrue(received.equals(expected));
+    }
+    
+    @Test
+    public void saveLoadOk() throws IOException {
+        File temp = File.createTempFile("test", ".csv");
+        temp.deleteOnExit();
+        createNet();
+        boolean saveOk = manager.saveSim(temp);
+        boolean loadOk = manager.loadSim(temp);
+        assertTrue(saveOk&&loadOk);
+    }
+    
+    private void createNet() {
+        manager.addNode("event1");
+        manager.addNode("event2");
+        manager.addNode("event3");
+        manager.addConnect("0", "1");
+        manager.addConnect("0", "2");
+        manager.initSim();       
     }
 }

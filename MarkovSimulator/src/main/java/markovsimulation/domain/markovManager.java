@@ -6,6 +6,11 @@ import markovsimulation.simulation.Simulation;
 import markovsimulation.simulation.SimHelper;
 import java.util.ArrayList;
 
+/**
+ * Main logic class of the Markov process simulation. 
+ * 
+ * @author eelismie
+ */
 public class markovManager {
     int startNode;
     boolean resultSort;
@@ -43,6 +48,14 @@ public class markovManager {
         simDetails.getNames().add(trimmed);
     }
     
+    /**
+     * method for adding connections to current loaded simulation.
+     * 
+     * @param begin
+     * @param end
+     * @return success 
+     */
+    
     public boolean addConnect(String begin, String end) {
         try {
             int a = Integer.parseInt(begin);
@@ -73,6 +86,11 @@ public class markovManager {
         return (simDetails.getNodes().isEmpty());
     }
     
+    /**
+     * Method for getting nodes and their indices
+     * @return result
+     */
+    
     public ArrayList getNodes() {
         ArrayList<String> result = new ArrayList<>();
         for (int i = 0; i < simDetails.getNodes().size(); i++) {
@@ -96,6 +114,11 @@ public class markovManager {
         }
         return result;
     }
+    
+    /**
+     * Method for getting probabilities with selected starting node
+     * @return result
+     */
     
     public ArrayList getProbabilities() {
         int size = simDetails.getNodes().size();
@@ -129,6 +152,13 @@ public class markovManager {
             return false;
         }
     }
+    
+    /**
+     * Save current loaded simulation to location defined by File object.
+     * 
+     * @param file
+     * @return success 
+     */
     
     public boolean saveSim(File file) {
         if (file == null) {

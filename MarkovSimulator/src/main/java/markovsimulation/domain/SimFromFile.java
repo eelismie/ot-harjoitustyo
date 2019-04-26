@@ -1,5 +1,3 @@
-
-
 package markovsimulation.domain;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
@@ -11,61 +9,42 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Class implementing SimDao that reads and writes simulations to and from .csv files
+ * @author eelismie
+ */
+
 public class SimFromFile implements SimDao { 
     File location;
     
     public SimFromFile(File file) {
         location = file;
     }
+    
+    /**
+     * Create SimDescriptor from File 
+     * @return SimDescriptor
+     * @throws Exception 
+     */
 
     @Override
-    public SimDescriptor loadSim() throws Exception {
-        
-        CSVReader reader = new CSVReader(new FileReader(location), ',' , '"' , 0);
+    public SimDescriptor loadSim() throws Exception {        
         ArrayList<ArrayList<Integer>> connections = new ArrayList<>();
         ArrayList<String> nodes = new ArrayList<>();
         HashSet<String> names = new HashSet<>();
-        
-        String[] nextLine;
-        int size = 0;
-        
-        try {
-            size = Integer.parseInt(reader.readNext()[0]);
-        } catch (NumberFormatException e) {
-            System.out.println("first number of csv (sim size) could not be read.");
-            return null;
-        }
-        
-        for (int i = 0; i < size; i++) {
-            nextLine = reader.readNext();
-            if ((nextLine == null) || nextLine[0].contentEquals("")) {
-                return null;
-            } else {
-                nodes.add(nextLine[0]);
+        List<String[]> lines = getLines();
+        int size = Integer.parseInt(lines.get(0)[0]);
+        for (int i = 1; i < lines.size(); i++) {
+            if (i <= size) {
+                nodes.add(lines.get(i)[0]);
+                names.add(lines.get(i)[0]);
                 connections.add(new ArrayList<>());
-                names.add(nextLine[0]);
+            } else {
+                int begin = Integer.parseInt(lines.get(i)[0]);
+                int end = Integer.parseInt(lines.get(i)[1]);
+                connections.get(begin).add(end);
             }
         }
-        
-        while ((nextLine = reader.readNext()) != null) {
-            if ((nextLine != null) && (nextLine.length == 2)) {
-                String start = nextLine[0];
-                String end = nextLine[1];
-                try {
-                    int a = Integer.parseInt(start);
-                    int b = Integer.parseInt(end);
-                    boolean valid = (((a < size) && (a >= 0)) && ((b < size) && (b >= 0)));
-                    if (valid && (a != b)) {
-                        if (!connections.get(a).contains(b)) {
-                            connections.get(a).add(b);
-                        }
-                    }
-                } catch (NumberFormatException e) {
-                    return null;
-                }
-            }
-        }
-        reader.close();
         return new SimDescriptor(names, nodes, connections);
     }
 
@@ -79,13 +58,17 @@ public class SimFromFile implements SimDao {
         }
     }
     
+    /**
+     * Helper method used to generate a list of String arrays from SimDescriptor
+     * @param sim
+     * @return lines
+     */
+    
     private List<String[]> generateLines(SimDescriptor sim) {
         ArrayList<ArrayList<Integer>> connects = sim.getConnects();
         List<String[]> lines = new ArrayList<>();
-        
         String[] line1 = {Integer.toString(sim.getNodes().size())};
         lines.add(line1);
-        
         for (String node : sim.getNodes()) {
             String[] line = {node};
             lines.add(line);
@@ -96,17 +79,18 @@ public class SimFromFile implements SimDao {
                 String[] line = {Integer.toString(i), Integer.toString(connect)};
                 lines.add(line);
             }
-        }
-        
+        }        
         return lines;
     }
     
-    private List<String[]> getLines(File file) throws IOException {
+    private List<String[]> getLines() throws IOException {
         List<String[]> lines = new ArrayList<>();
+        try (CSVReader reader = new CSVReader(new FileReader(location), ',' , '"' , 0)) {
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                lines.add(nextLine);
+            }
+        }
         return lines;
-    }
-    
-    private int convertToConnect() {
-        return 1;
     }
 }
