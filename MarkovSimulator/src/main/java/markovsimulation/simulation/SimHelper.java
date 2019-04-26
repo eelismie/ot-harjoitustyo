@@ -5,16 +5,13 @@
  */
 package markovsimulation.simulation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class SimHelper {
-    double[][] savedstate;
-    double[][] savedtransition;
+    double[][] savedState;
+    double[][] savedTransition;
     
     public SimHelper(Simulation sim) {
-        savedstate = sim.state;
-        savedtransition = sim.transition;
+        savedState = sim.state;
+        savedTransition = sim.transition;
     }
     
     public void allowJumps(Simulation sim, double beta) {
@@ -22,25 +19,25 @@ public class SimHelper {
         double[][] newstate = new double[size][size];
         for (int i = 0; i < size; i++)  {
             for (int j = 0; j < size; j++) {
-                newstate[i][j] = (1 - beta) * savedstate[i][j] + beta * (1.0 / (float) size);
+                newstate[i][j] = (1 - beta) * savedState[i][j] + beta * (1.0 / (float) size);
             }
         }
         sim.transition = newstate;
     }
     
     public void disallowJumps(Simulation sim) {
-        sim.transition = savedtransition;
+        sim.transition = savedTransition;
     }
     
     public void recoverstate(Simulation sim) {
-        sim.state = savedstate;
+        sim.state = savedState;
     }
     
     public double[][] getsave() {
-        return this.savedstate;
+        return this.savedState;
     }
     
     public double[][] gettransition() {
-        return this.savedtransition;
+        return this.savedTransition;
     }
 }

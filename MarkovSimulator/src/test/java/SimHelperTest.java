@@ -36,13 +36,7 @@ public class SimHelperTest {
     
     @Test
     public void initOK() {
-        assertTrue(Arrays.deepEquals(sim.getStateMatrix(), helper.getsave()));
-        assertTrue(Arrays.deepEquals(helper.gettransition(), sim.getTransitionMatrix()));
+        assertTrue(Arrays.deepEquals(sim.getStateMatrix(), helper.getsave()) &&
+            Arrays.deepEquals(helper.gettransition(), sim.getTransitionMatrix()));
     }
-    
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }

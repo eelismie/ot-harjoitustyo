@@ -7,30 +7,30 @@ import markovsimulation.simulation.SimHelper;
 import java.util.ArrayList;
 
 public class markovManager {
-    int resultdisplay;
-    boolean resultsort;
-    Simulation currentsim;
+    int startNode;
+    boolean resultSort;
+    Simulation currentSim;
     SimHelper helper;
-    SimDescriptor simdetails;
+    SimDescriptor simDetails;
     
     public markovManager() {
-        resultdisplay = 0;
-        resultsort = false;
-        simdetails = new SimDescriptor();
+        startNode = 0;
+        resultSort = false;
+        simDetails = new SimDescriptor();
     }
     
-    public boolean initsim() {
-        if (simdetails.getNodes().isEmpty()) {
+    public boolean initSim() {
+        if (simDetails.getNodes().isEmpty()) {
             return false;
         }
-        currentsim = new Simulation(simdetails);
-        helper = new SimHelper(currentsim);
+        currentSim = new Simulation(simDetails);
+        helper = new SimHelper(currentSim);
         return true;
     }
     
     public void restart() {
-        simdetails = new SimDescriptor();
-        currentsim = null;
+        simDetails = new SimDescriptor();
+        currentSim = null;
     }
     
     public void addNode(String description) {
@@ -38,22 +38,22 @@ public class markovManager {
         if (nodeExists(trimmed)) {
             return;
         }
-        simdetails.getNodes().add(trimmed);
-        simdetails.getConnects().add(new ArrayList<>());
-        simdetails.getNames().add(trimmed);
+        simDetails.getNodes().add(trimmed);
+        simDetails.getConnects().add(new ArrayList<>());
+        simDetails.getNames().add(trimmed);
     }
     
     public boolean addConnect(String begin, String end) {
         try {
             int a = Integer.parseInt(begin);
             int b = Integer.parseInt(end);
-            int nodelen = simdetails.getNodes().size();
+            int nodelen = simDetails.getNodes().size();
             boolean valid = (((a < nodelen) && (a >= 0)) && ((b < nodelen) && (b >= 0)));
             if (valid && (a != b)) {
-                if (simdetails.getConnects().get(a).contains(b)) {
+                if (simDetails.getConnects().get(a).contains(b)) {
                     return false;
                 }
-                simdetails.getConnects().get(a).add(b);
+                simDetails.getConnects().get(a).add(b);
                 return true;
             }
         } catch (NumberFormatException e) {
@@ -63,30 +63,30 @@ public class markovManager {
     }
     
     public boolean nodeExists(String description) {
-        return simdetails.getNames().contains(description);
+        return simDetails.getNames().contains(description);
     }
     
-    public boolean nothingloaded() {
-        if (simdetails == null) {
+    public boolean nothingLoaded() {
+        if (simDetails == null) {
             return false;
         }
-        return (simdetails.getNodes().isEmpty());
+        return (simDetails.getNodes().isEmpty());
     }
     
     public ArrayList getNodes() {
         ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < simdetails.getNodes().size(); i++) {
-            result.add(i + " : " + simdetails.getNodes().get(i));
+        for (int i = 0; i < simDetails.getNodes().size(); i++) {
+            result.add(i + " : " + simDetails.getNodes().get(i));
         }
         return result;
     }
     
     public ArrayList getConnects() {
         ArrayList<String> result = new ArrayList<>();
-        int size = simdetails.getNodes().size();
+        int size = simDetails.getNodes().size();
         for (int i = 0; i < size; i++) {
             final int a = i;
-            ArrayList<Integer> ar = simdetails.getConnects().get(i);
+            ArrayList<Integer> ar = simDetails.getConnects().get(i);
             if (ar.isEmpty()) {
                 continue;
             }
@@ -98,10 +98,10 @@ public class markovManager {
     }
     
     public ArrayList getProbabilities() {
-        int size = simdetails.getNodes().size();
+        int size = simDetails.getNodes().size();
         ArrayList<String> result = new ArrayList<>();
-        ArrayList<Double> probs = currentsim.getProbability(resultdisplay);
-        ArrayList<String> nodes = simdetails.getNodes(); 
+        ArrayList<Double> probs = currentSim.getProbability(startNode);
+        ArrayList<String> nodes = simDetails.getNodes(); 
         
         for (int i = 0; i < size; i++) {
             result.add(nodes.get(i) + " : " + probs.get(i).toString());
@@ -111,33 +111,32 @@ public class markovManager {
     
     public void evolveCurrentSim(int n) {
         for (int i = 0; i < n; i++) {
-            currentsim.next();
+            currentSim.next();
         }
     }
     
-    public boolean loadsim(File file) {
+    public boolean loadSim(File file) {
         SimFromFile filereader = new SimFromFile(file);
         try {
             SimDescriptor read = filereader.loadSim();
-            this.simdetails = read;
-            if (this.simdetails == null) {
+            this.simDetails = read;
+            if (this.simDetails == null) {
                 System.out.println("simdetails null");
                 return false;
             }
             return true;
         } catch (Exception ex) {
-            System.out.println(ex);
             return false;
         }
     }
     
-    public boolean savesim(File file) {
+    public boolean saveSim(File file) {
         if (file == null) {
             return false;
         }
         SimFromFile saver = new SimFromFile(file);
         try {
-            saver.saveSim(simdetails);
+            saver.saveSim(simDetails);
             return true;
         } catch (Exception ex) {
             System.out.println(ex);
@@ -146,30 +145,30 @@ public class markovManager {
     }
     
     public void setSort(boolean val) {
-        resultsort = val;
+        resultSort = val;
     }
     
     public void addJumps(double beta) {
         if (beta > 0.01) {
-            helper.allowJumps(currentsim, beta);
+            helper.allowJumps(currentSim, beta);
         } else {
-            helper.disallowJumps(currentsim);
+            helper.disallowJumps(currentSim);
         }
     }
     
     public void setResultDisplay(int i) {
-        this.resultdisplay = i;
+        this.startNode = i;
     }
     
     public int getSize() {
-        return simdetails.getNodes().size();
+        return simDetails.getNodes().size();
     }
     
     public Simulation getCurrentSim() {
-        return this.currentsim;
+        return this.currentSim;
     }
     
     public SimDescriptor getSimDescription() {
-        return this.simdetails;
+        return this.simDetails;
     }
 }

@@ -74,7 +74,7 @@ public class markovUI extends Application {
         loadbutton.setOnAction(e -> {
             File file = filechooser.showOpenDialog(window);
             if (file != null){
-                if (logic.loadsim(file)) {
+                if (logic.loadSim(file)) {
                     loadbutton.setStyle("-fx-background-color: #70ff74; ");
                 } else {
                     loadbutton.setStyle("-fx-background-color: #ff7070; ");
@@ -108,7 +108,7 @@ public class markovUI extends Application {
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showSaveDialog(window);
-            logic.savesim(file);
+            logic.saveSim(file);
         });
         
         // Editfield - Center
@@ -260,8 +260,8 @@ public class markovUI extends Application {
         });
         
         next2.setOnAction(e -> {
-            if (!logic.nothingloaded()){
-                logic.initsim();
+            if (!logic.nothingLoaded()){
+                logic.initSim();
                 startingnodeslider.setMax(logic.getSize() - 1);
                 window.setScene(resultscene);
             }
