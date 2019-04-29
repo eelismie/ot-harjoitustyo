@@ -1,6 +1,7 @@
 
 package markovsimulation.domain;
 
+import markovsimulation.dao.SimFromFile;
 import java.io.File;
 import markovsimulation.simulation.Simulation;
 import markovsimulation.simulation.SimHelper;

@@ -2,6 +2,7 @@ package markovsimulation.ui;
 
 import java.util.ArrayList;
 import java.io.File;
+import java.sql.SQLException;
 import markovsimulation.domain.markovManager;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -30,17 +31,28 @@ import javafx.stage.FileChooser.ExtensionFilter;
 
 public class markovUI extends Application {
     
+    private markovManager logic;
+    
     public void listelements(ListView<String> view, ArrayList<String> nodes){
         ObservableList<String> items = FXCollections.observableArrayList(nodes);
         view.setItems(items);
     }
     
+    public void resize(Stage window, double w, double h){
+        window.setHeight(h);
+        window.setWidth(w);
+    }
+    
+    @Override
+    public void init() throws SQLException {
+        logic = new markovManager();
+    }
+    
     @Override
     public void start(Stage window){
         
-        int resultindex = 0;
         window.setHeight(500);
-        window.setWidth(800);
+        window.setWidth(400);
         window.setTitle("Markov Process Simulation");
         markovManager logic = new markovManager();
         
@@ -51,10 +63,9 @@ public class markovUI extends Application {
         buttonfield1.setPadding(new Insets(10));
         buttonfield1.setAlignment(Pos.CENTER);
         Button next1 = new Button("next");
-        Button back1 = new Button("quit");
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-        buttonfield1.getChildren().setAll(back1, spacer, next1);
+        buttonfield1.getChildren().setAll(spacer, next1);
         
         //inputfield - Center
         VBox inputfield1 = new VBox();
@@ -64,8 +75,7 @@ public class markovUI extends Application {
         HBox textinput1 = new HBox();
         textinput1.setSpacing(5);
         Button loadbutton = new Button("load from csv");
-        Label loadlabel = new Label("Load existing simulation:");
-        textinput1.getChildren().setAll(loadlabel, loadbutton);
+        textinput1.getChildren().setAll(loadbutton);
         inputfield1.getChildren().setAll(textinput1);
 
         FileChooser filechooser = new FileChooser();
@@ -86,6 +96,7 @@ public class markovUI extends Application {
         BorderPane frame1 = new BorderPane();
         frame1.setBottom(buttonfield1);
         frame1.setCenter(inputfield1);
+        frame1.setAlignment(inputfield1, Pos.CENTER);
         
         Scene loadscene = new Scene(frame1);
         
@@ -238,8 +249,11 @@ public class markovUI extends Application {
         allowjumpsbox.getChildren().setAll(ajlabel, jumpprobslider);
         options.getChildren().setAll(startingnodebox, allowjumpsbox);
         
-        resultpane.add(probabilities, 0, 0);
-        resultpane.add(options, 1, 0);
+        Label stepTitle = new Label("Probabilities");
+        resultpane.setAlignment(Pos.CENTER);
+        resultpane.add(stepTitle, 0, 0);
+        resultpane.add(probabilities, 0, 1);
+        resultpane.add(options, 0, 2);
         
         BorderPane frame3 = new BorderPane();
         frame3.setCenter(resultpane);
@@ -257,6 +271,7 @@ public class markovUI extends Application {
             listelements(nodelist, logic.getNodes());
             listelements(connectionlist, logic.getConnects());
             window.setScene(editscene);
+            resize(window, 800, 500);
         });
         
         next2.setOnAction(e -> {
@@ -264,15 +279,18 @@ public class markovUI extends Application {
                 logic.initSim();
                 startingnodeslider.setMax(logic.getSize() - 1);
                 window.setScene(resultscene);
+                resize(window, 400, 500);
             }
         });
         
         back2.setOnAction(e -> {
             window.setScene(loadscene);
+            resize(window, 400, 500);
         });
         
         back3.setOnAction(e -> {
             window.setScene(editscene);
+            resize(window, 800, 500);
         });
         
         window.setScene(loadscene);

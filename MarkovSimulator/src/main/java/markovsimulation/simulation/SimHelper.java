@@ -9,10 +9,12 @@ package markovsimulation.simulation;
 public class SimHelper {
     double[][] savedState;
     double[][] savedTransition;
+    Simulation sim;
     
     public SimHelper(Simulation sim) {
-        savedState = sim.state;
-        savedTransition = sim.transition;
+        this.sim = sim;
+        this.savedState = sim.state;
+        this.savedTransition = sim.transition;
     }
     
     /**

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class Simulation {
     int size;
+    int currentStep;
     double[][] transition;
     double[][] state;
     /**
@@ -19,13 +20,12 @@ public class Simulation {
     public Simulation(SimDescriptor descriptor) {
         this.size = descriptor.getNodes().size();
         ArrayList<ArrayList<Integer>> connections = descriptor.getConnects();
-        
+        this.currentStep = 0;
         transition = new double[size][size];
         state = new double[size][size];
         if (size == 0) { 
             return;
         }
-        
         for (int i = 0; i < size; i++) {
             ArrayList<Integer> current = connections.get(i);
             if (current.isEmpty()) {
@@ -52,6 +52,7 @@ public class Simulation {
                 next[i][j] = sum;
             }
         }
+        this.currentStep++;
         this.state = next;
     }
     
@@ -61,6 +62,10 @@ public class Simulation {
     
     public double[][] getStateMatrix() { //needed for tests
         return this.state;
+    }
+    
+    public int getCurrentStep() {
+        return this.currentStep;
     }
     
     /**

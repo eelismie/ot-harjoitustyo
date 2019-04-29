@@ -1,5 +1,7 @@
 
-package markovsimulation.domain;
+package markovsimulation.dao;
+
+import markovsimulation.domain.SimDescriptor;
 
 /**
  *

@@ -1,4 +1,4 @@
-package markovsimulation.domain;
+package markovsimulation.dao;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import java.io.File;
@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import markovsimulation.domain.SimDescriptor;
 
 /**
  * Class implementing SimDao that reads and writes simulations to and from .csv files
@@ -78,8 +79,7 @@ public class SimFromFile implements SimDao {
         for (String node : sim.getNodes()) {
             String[] line = {node};
             lines.add(line);
-        }
-        
+        }       
         for (int i = 0; i < sim.getNodes().size(); i++) {
             for (Integer connect : connects.get(i)) {
                 String[] line = {Integer.toString(i), Integer.toString(connect)};
