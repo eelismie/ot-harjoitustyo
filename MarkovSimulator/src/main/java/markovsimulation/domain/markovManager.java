@@ -170,7 +170,6 @@ public class markovManager {
             SimDescriptor read = filereader.loadSim();
             this.simDetails = read;
             if (this.simDetails == null) {
-                System.out.println("simdetails null");
                 return false;
             }
             return true;
