@@ -39,13 +39,22 @@ The simulation state that is displayed to the user and advanced is contained in 
 
 Simulations are read and saved in .csv files in a simple format. The element in the first row and column is the size of the simulation, or the number of nodes. The next row elements are strings containing the descriptions or names of the nodes. After this we have the connections between the nodes stored as integers, representing the start index and end index of the nodes encountered in the previous lines. The start and end indices are separated by a comma. An example .csv can be found [here](https://github.com/volatilequark/ot-harjoitustyo/tree/master/docs).
 
-Simulations can also be read and stored into an SQL database. The nodes are stored inside a table with the following schema:
-and the connections are stored in a table with the scema: . We can join the node table with itself on the connections stored in the connections table to find unconnected nodes. 
+Simulations can also be read and stored into an SQL database. The nodes are stored inside a table with the properties: (Nodes  | id (pk) : Integer, name : varchar(255)). The connections are stored in a table with the description: (Connections | start (pk) : Integer, end : Integer). We can join the node table with itself on the connections stored in the connections table to find unconnected nodes. 
 
 ## Main Features
 ### Loading a simulation from a .csv file 
+When the user clicks the 'load from file' button in the load screen, the following sequence occurs:
+![Sequence1](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/pictures/loadsequence.png)
+### Adding a connection 
+When the user adds details for the start and endpoint of a connection, and presses the 'add connection' button in the edit screen, the program behaves in the following way:
+![Sequence2](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/pictures/editsequence.png)
 ### Advancing the simulation state
 When the user presses the 'next' button in the result display, the following sequence occurs. The final result is that the current simulation state has advanced by n steps, and the results of taking these steps are displayed to the user.
+![Sequence3](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/pictures/simsequence.png)
+### Other features
+The simulation state can be edited from the MarkovManager class with the aid of a SimHelper, and the simulation state can be cleared, added onto and saved. These features work under the same principles, with UI events translating to markovManager method calls which in turn result in third level calls to the other classes. 
 
-![Sequence](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/pictures/simsequence.png)
+## Issues
 
+### UI
+The ui is entirely initialized in the start() method. This could be split into separate methods, even though the different scenes don't have many similarities. Since the ui has multiple nested layers and functionalities, the code is currently quite lengthy. 
