@@ -13,7 +13,7 @@ The application supports one user at a time who can create / load simulations. T
 
 The application consists of three separate scenes. The initial scene provides simple instructions and contains the option to load a simulation from a csv. The second screen is a simulation editing scene, allowing the user to see the nodes and connections as a list and add more if necessary. The user can also choose to save the simulation from this creen, or clear the currently loaded nodes and connections. The third scene contains results for the simulation. The user can use provided sliders to control the running of the simulation and the way the results are displayed.
 
-![GUI](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/GUI.png)
+![GUI](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/pictures/uidescription.jpg)
 
 # Functionality
 
