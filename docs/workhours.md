@@ -41,5 +41,8 @@
 + Code cleaning and tweaks ~ 2 hours
 + Javadoc added ~ 1 hour
 
+## Week 6
+### May 3
++ Improving documentation ~ 4 hours
 ## Total 
 36 hours
