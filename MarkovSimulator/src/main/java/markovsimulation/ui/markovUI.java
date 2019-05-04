@@ -78,7 +78,8 @@ public class markovUI extends Application {
         HBox textinput1 = new HBox();
         textinput1.setSpacing(5);
         Button loadbutton = new Button("load from csv");
-        textinput1.getChildren().setAll(loadbutton);
+        Button loadbutton2 = new Button("load from save");
+        textinput1.getChildren().setAll(loadbutton, loadbutton2);
         inputfield1.getChildren().setAll(textinput1);
 
         FileChooser filechooser = new FileChooser();
@@ -93,6 +94,14 @@ public class markovUI extends Application {
                     loadbutton.setStyle("-fx-background-color: #ff7070; ");
                 };
             }
+        });
+        
+        loadbutton2.setOnAction(e -> {
+            if (logic.loadSim(database)) {
+                loadbutton2.setStyle("-fx-background-color: #70ff74; ");
+            } else {
+                loadbutton2.setStyle("-fx-background-color: #ff7070; ");
+            };
         });
         
         //Load scene Root

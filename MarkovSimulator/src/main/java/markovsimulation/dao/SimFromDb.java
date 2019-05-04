@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import markovsimulation.domain.SimDescriptor;
 /**
@@ -73,7 +75,12 @@ public class SimFromDb implements SimDao {
 
     @Override
     public SimDescriptor loadSim() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection dbConnect = getConnection();
+        ArrayList<String> nodes = loadNodes(dbConnect);
+        ArrayList<ArrayList<Integer>> connects = loadConnections(dbConnect, nodes.size());
+        HashSet<String> names = new HashSet(nodes);
+        dbConnect.close();
+        return new SimDescriptor(names, nodes, connects);
     }
 
     @Override
@@ -122,6 +129,30 @@ public class SimFromDb implements SimDao {
         PreparedStatement clear = connect.prepareStatement("DELETE FROM Nodes");
         clear.execute();
         clear.close();
+    }
+    
+    private ArrayList<ArrayList<Integer>> loadConnections(Connection dbConnect, int size) throws SQLException {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        PreparedStatement stmnt = dbConnect.prepareStatement("SELECT * FROM Connections");
+        ResultSet set = stmnt.executeQuery();
+        for (int i = 0; i < size; i++) {
+            result.add(new ArrayList<>());
+        }
+        while (set.next()) {
+            result.get(set.getInt("start")).add(set.getInt("end"));
+        }
+        stmnt.close();
+        return result;
+    }
+
+    private ArrayList<String> loadNodes(Connection dbConnect) throws SQLException {
+        ArrayList<String> result = new ArrayList<>();
+        PreparedStatement stmnt = dbConnect.prepareStatement("SELECT * FROM Nodes");
+        ResultSet set = stmnt.executeQuery();
+        while (set.next()) {
+            result.add(set.getString("name"));
+        }
+        return result;
     }
     
     public Connection getConnection() throws SQLException {
