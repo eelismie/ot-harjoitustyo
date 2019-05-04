@@ -186,7 +186,9 @@ public class markovManager {
      */
     
     public boolean saveSim(SimDao saver) {
-        if (nothingLoaded()) return false;
+        if (nothingLoaded()) {
+            return false;
+        }
         try {
             saver.saveSim(simDetails);
             return true;

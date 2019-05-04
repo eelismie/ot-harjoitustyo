@@ -5,7 +5,6 @@
  */
 package markovsimulation.dao;
 
-import markovsimulation.domain.SimDescriptor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
-
 import markovsimulation.domain.SimDescriptor;
 /**
  * Class implementing SimDao that accesses simulations through an SQLite database
@@ -152,6 +149,7 @@ public class SimFromDb implements SimDao {
         while (set.next()) {
             result.add(set.getString("name"));
         }
+        stmnt.close();
         return result;
     }
     
