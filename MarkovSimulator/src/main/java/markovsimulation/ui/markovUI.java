@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.sql.SQLException;
 import markovsimulation.domain.markovManager;
+import markovsimulation.dao.SimFromDb;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.application.Application;
@@ -12,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,6 +32,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class markovUI extends Application {
     
     private markovManager logic;
+    private SimFromDb database;
     
     public void listelements(ListView<String> view, ArrayList<String> nodes){
         ObservableList<String> items = FXCollections.observableArrayList(nodes);
@@ -46,6 +47,8 @@ public class markovUI extends Application {
     @Override
     public void init() throws SQLException {
         logic = new markovManager();
+        database = new SimFromDb();
+        database.initDb("network.db");
     }
     
     @Override
@@ -54,7 +57,6 @@ public class markovUI extends Application {
         window.setHeight(500);
         window.setWidth(400);
         window.setTitle("Markov Process Simulation");
-        markovManager logic = new markovManager();
         
         //___load Scene___
                 
