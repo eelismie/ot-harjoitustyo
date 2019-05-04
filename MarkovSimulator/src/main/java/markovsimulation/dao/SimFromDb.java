@@ -78,9 +78,52 @@ public class SimFromDb implements SimDao {
 
     @Override
     public void saveSim(SimDescriptor description) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection dbConnect = getConnection();
+        saveConnections(description.getConnects(), dbConnect);
+        saveNodes(description.getNodes(), dbConnect);
+        dbConnect.close();
     }
-
+    
+    private void saveConnections(ArrayList<ArrayList<Integer>> connects, Connection dbConnect) throws SQLException {
+        clearConnects(dbConnect);
+        PreparedStatement add = dbConnect.prepareStatement("INSERT INTO Connections (start, end)"
+                + "VALUES (?, ?)");
+        for (int i = 0; i < connects.size(); i++) {
+            ArrayList<Integer> currentList = connects.get(i);
+            for (Integer j : currentList) {
+                add.setInt(1, i);
+                add.setInt(2, j);
+                add.addBatch();
+            }
+        }
+        add.executeBatch();
+        add.close();
+    }
+    
+    private void saveNodes(ArrayList<String> nodes, Connection dbConnect) throws SQLException {
+        clearNodes(dbConnect);
+        PreparedStatement add = dbConnect.prepareStatement("INSERT INTO Nodes (name)"
+                + "VALUES (?)");
+        for (String name : nodes) {
+            add.setString(1, name);
+            add.addBatch();
+        }
+        add.executeBatch();
+        add.close();    
+    }
+    
+    private void clearConnects(Connection connect) throws SQLException {
+        PreparedStatement clear = connect.prepareStatement("DELETE FROM Connections");
+        clear.execute();
+        clear.close();
+    }
+    
+    private void clearNodes(Connection connect) throws SQLException {
+        PreparedStatement clear = connect.prepareStatement("DELETE FROM Nodes");
+        clear.execute();
+        clear.close();
+    }
+    
     public Connection getConnection() throws SQLException {
         String dbLocation = System.getenv("JDBC_DATABASE_URL");
         if (dbLocation != null && dbLocation.length() > 0) {
