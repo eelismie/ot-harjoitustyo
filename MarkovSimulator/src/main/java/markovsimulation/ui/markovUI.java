@@ -5,6 +5,7 @@ import java.io.File;
 import java.sql.SQLException;
 import markovsimulation.domain.markovManager;
 import markovsimulation.dao.SimFromDb;
+import markovsimulation.dao.SimFromFile;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.application.Application;
@@ -28,7 +29,6 @@ import javafx.scene.text.Text;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.stage.FileChooser.ExtensionFilter;
-import markovsimulation.dao.SimFromFile;
 
 public class markovUI extends Application {
     
@@ -42,7 +42,7 @@ public class markovUI extends Application {
     
     public void resize(Stage window, double w, double h){
         window.setHeight(h);
-        window.setWidth(w);
+        window.setWidth(w); 
     }
     
     @Override
@@ -249,6 +249,16 @@ public class markovUI extends Application {
         jumpprobslider.setMinorTickCount(3);
         jumpprobslider.setShowTickLabels(true);
         
+        HBox stepsizeBox = new HBox();
+        stepsizeBox.setAlignment(Pos.CENTER_RIGHT);
+        Label szlabel = new Label("Step size: ");
+        Slider stepSlider = new Slider(1.0, 5.0, 0);
+        stepSlider.setBlockIncrement(1);
+        stepSlider.setMajorTickUnit(1);
+        stepSlider.setMinorTickCount(0);
+        stepSlider.setShowTickLabels(true);
+        stepSlider.setSnapToTicks(true);
+        
         startingnodeslider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                 Number old_val, Number new_val) {
@@ -264,9 +274,17 @@ public class markovUI extends Application {
             }
         });
         
+        stepSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                    logic.setStepSize(new_val.intValue());
+            }
+        });
+        
         startingnodebox.getChildren().setAll(snlabel, startingnodeslider);
         allowjumpsbox.getChildren().setAll(ajlabel, jumpprobslider);
-        options.getChildren().setAll(startingnodebox, allowjumpsbox);
+        stepsizeBox.getChildren().setAll(szlabel, stepSlider);
+        options.getChildren().setAll(startingnodebox, allowjumpsbox, stepsizeBox);
         
         Label stepTitle = new Label("Probabilities");
         resultpane.setAlignment(Pos.CENTER);
@@ -280,7 +298,7 @@ public class markovUI extends Application {
         Scene resultscene = new Scene(frame3);
         
         next3.setOnAction(e->{
-            logic.evolveCurrentSim(1);
+            logic.evolveCurrentSim();
             listelements(probabilities, logic.getProbabilities());
         });
         

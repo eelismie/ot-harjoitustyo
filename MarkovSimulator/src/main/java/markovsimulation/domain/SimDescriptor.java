@@ -25,7 +25,7 @@ public class SimDescriptor {
     }
     
     /**
-     * 
+     * Alternate constructor
      * @param names HashSet of node names
      * @param nodes String ArrayList of node names. Index describes node numbering. 
      * @param connections Adjacency list representation of connections. ArrayList of Integer ArrayLists.

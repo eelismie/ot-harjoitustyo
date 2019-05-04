@@ -1,5 +1,6 @@
 
 package markovsimulation.simulation;
+
 import markovsimulation.domain.SimDescriptor;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ public class Simulation {
     double[][] state;
     /**
      * Constructor that creates 2d array representation of connections for running simulation
-     * @param descriptor Simulation to turn into sim object
+     * @param descriptor Simulation to turn into a simulation.
      */
     public Simulation(SimDescriptor descriptor) {
         this.size = descriptor.getNodes().size();

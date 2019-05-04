@@ -61,7 +61,7 @@ public class markovManagerTest {
         manager.addConnect("0", "1");
         manager.addConnect("0", "2");
         manager.initSim();
-        manager.evolveCurrentSim(1);
+        manager.evolveCurrentSim();
         assertTrue(expected.equals(manager.getProbabilities()));
         manager.setResultDisplay(1);
         assertTrue(expected2.equals(manager.getProbabilities()));

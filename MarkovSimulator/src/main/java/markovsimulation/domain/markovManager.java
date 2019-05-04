@@ -1,28 +1,27 @@
 
 package markovsimulation.domain;
 
-import markovsimulation.dao.SimFromFile;
-import java.io.File;
+import markovsimulation.dao.SimDao;
 import markovsimulation.simulation.Simulation;
 import markovsimulation.simulation.SimHelper;
 import java.util.ArrayList;
-import markovsimulation.dao.SimDao;
 
 /**
  * Main logic class of the Markov process simulation. 
  * 
  * @author eelismie
  */
+
 public class markovManager {
     int startNode;
-    boolean resultSort;
+    int stepSize;
     Simulation currentSim;
     SimHelper helper;
     SimDescriptor simDetails;
     
     public markovManager() {
         startNode = 0;
-        resultSort = false;
+        stepSize = 1;
         simDetails = new SimDescriptor();
     }
     
@@ -47,6 +46,7 @@ public class markovManager {
     public void restart() {
         simDetails = new SimDescriptor();
         currentSim = null;
+        helper = null;
     }
     
     /**
@@ -65,7 +65,7 @@ public class markovManager {
     }
     
     /**
-     * method for adding connections to current loaded simulation.
+     * Method for adding connections to current loaded simulation.
      * 
      * @param begin String describing beginning index of connection
      * @param end String describing ending index of connection
@@ -93,7 +93,7 @@ public class markovManager {
     
     /**
      * Method for checking if a certain node is already in the network
-     * @param description nodename to be checked
+     * @param description node to be checked
      * @return 
      */
     
@@ -159,11 +159,21 @@ public class markovManager {
         return result;
     }
     
-    public void evolveCurrentSim(int n) {
-        for (int i = 0; i < n; i++) {
+    /**
+     * Advance the current simulation by n steps 
+     */
+    
+    public void evolveCurrentSim() {
+        for (int i = 0; i < this.stepSize; i++) {
             currentSim.next();
         }
     }
+    
+    /**
+     * Method for loading a simulation into the application
+     * @param reader SimDao responsible for reading simulation
+     * @return 
+     */
     
     public boolean loadSim(SimDao reader) {
         try {
@@ -179,9 +189,8 @@ public class markovManager {
     }
     
     /**
-     * Save current loaded simulation to location defined by File object.
-     * 
-     * @param file
+     * Save current loaded simulation to location defined by File object. 
+     * @param saver SimDao responsible for saving simulation state
      * @return success 
      */
     
@@ -198,9 +207,10 @@ public class markovManager {
         }
     }
     
-    public void setSort(boolean val) {
-        resultSort = val;
-    }
+    /**
+     * Adds or removes jumps to the current loaded simulation
+     * @param beta 
+     */
     
     public void addJumps(double beta) {
         if (beta > 0.01) {
@@ -224,5 +234,9 @@ public class markovManager {
     
     public SimDescriptor getSimDescription() {
         return this.simDetails;
+    }
+    
+    public void setStepSize(int n) {
+        this.stepSize = n;
     }
 }

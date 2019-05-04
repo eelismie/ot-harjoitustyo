@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package markovsimulation.dao;
 
 import java.sql.Connection;
@@ -13,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import markovsimulation.domain.SimDescriptor;
+
 /**
  * Class implementing SimDao that accesses simulations through an SQLite database
  * @author eelismie
@@ -69,6 +65,12 @@ public class SimFromDb implements SimDao {
         makeConnects.close();
         dbConnect.close();
     }
+    
+    /**
+     * class implementing loadSim from SimDao
+     * @return SimDescriptor for loaded sim
+     * @throws Exception 
+     */
 
     @Override
     public SimDescriptor loadSim() throws Exception {
@@ -79,6 +81,12 @@ public class SimFromDb implements SimDao {
         dbConnect.close();
         return new SimDescriptor(names, nodes, connects);
     }
+    
+    /**
+     * Implementation of saveSim from SimDao
+     * @param description SimDescriptor of saved sim
+     * @throws Exception 
+     */
 
     @Override
     public void saveSim(SimDescriptor description) throws Exception {
@@ -87,6 +95,13 @@ public class SimFromDb implements SimDao {
         saveNodes(description.getNodes(), dbConnect);
         dbConnect.close();
     }
+    
+    /**
+     * Saves an ArrayList of connections to database. 
+     * @param connects list of lists of connections 
+     * @param dbConnect established java sql database connection
+     * @throws SQLException 
+     */
     
     private void saveConnections(ArrayList<ArrayList<Integer>> connects, Connection dbConnect) throws SQLException {
         clearConnects(dbConnect);
@@ -103,6 +118,13 @@ public class SimFromDb implements SimDao {
         add.executeBatch();
         add.close();
     }
+    
+    /**
+     * Saves an ArrayList of nodes to the Database
+     * @param nodes List of nodes
+     * @param dbConnect established java sql connection 
+     * @throws SQLException 
+     */
     
     private void saveNodes(ArrayList<String> nodes, Connection dbConnect) throws SQLException {
         clearNodes(dbConnect);
@@ -128,6 +150,14 @@ public class SimFromDb implements SimDao {
         clear.close();
     }
     
+    /**
+     * Loads an arrayList of connections from database
+     * @param dbConnect established java sql connection
+     * @param size size of the simulation
+     * @return ArrayList<ArrayList<Integer>> connections
+     * @throws SQLException 
+     */
+    
     private ArrayList<ArrayList<Integer>> loadConnections(Connection dbConnect, int size) throws SQLException {
         ArrayList<ArrayList<Integer>> result = new ArrayList<>();
         PreparedStatement stmnt = dbConnect.prepareStatement("SELECT * FROM Connections");
@@ -141,6 +171,13 @@ public class SimFromDb implements SimDao {
         stmnt.close();
         return result;
     }
+    
+    /**
+     * Returns nodes loaded from database as a list
+     * @param dbConnect sql connection
+     * @return ArrayList<String> nodes
+     * @throws SQLException 
+     */
 
     private ArrayList<String> loadNodes(Connection dbConnect) throws SQLException {
         ArrayList<String> result = new ArrayList<>();
@@ -153,13 +190,17 @@ public class SimFromDb implements SimDao {
         return result;
     }
     
+    /**
+     * Returns sql connection
+     * @return Connection object
+     * @throws SQLException 
+     */
+    
     public Connection getConnection() throws SQLException {
         String dbLocation = System.getenv("JDBC_DATABASE_URL");
         if (dbLocation != null && dbLocation.length() > 0) {
             return DriverManager.getConnection(dbLocation);
         }
         return DriverManager.getConnection("jdbc:sqlite:" + this.name);
-    }
-
-    
+    } 
 }
