@@ -220,6 +220,14 @@ public class markovManager {
         }
     }
     
+    /**
+     * Recover the state of the current simulation
+     */
+    
+    public void recoverSim() {
+        helper.recoverstate(currentSim);
+    }
+    
     public void setResultDisplay(int i) {
         this.startNode = i;
     }

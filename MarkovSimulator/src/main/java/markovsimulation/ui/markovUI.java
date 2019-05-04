@@ -216,9 +216,10 @@ public class markovUI extends Application {
         buttonfield3.setPadding(new Insets(10));
         Button back3 = new Button("back");
         Button next3 = new Button("next state");
+        Button restart = new Button("restart");
         Region spacer3 = new Region();
         HBox.setHgrow(spacer3, Priority.ALWAYS);
-        buttonfield3.getChildren().setAll(back3, spacer3, next3);
+        buttonfield3.getChildren().setAll(back3, spacer3, restart, next3);
         
         GridPane resultpane = new GridPane();
         resultpane.setPadding(new Insets(10));
@@ -299,6 +300,11 @@ public class markovUI extends Application {
         
         next3.setOnAction(e->{
             logic.evolveCurrentSim();
+            listelements(probabilities, logic.getProbabilities());
+        });
+        
+        restart.setOnAction(e->{
+            logic.recoverSim();
             listelements(probabilities, logic.getProbabilities());
         });
         
