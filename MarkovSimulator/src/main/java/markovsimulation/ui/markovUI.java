@@ -28,6 +28,7 @@ import javafx.scene.text.Text;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.stage.FileChooser.ExtensionFilter;
+import markovsimulation.dao.SimFromFile;
 
 public class markovUI extends Application {
     
@@ -86,7 +87,7 @@ public class markovUI extends Application {
         loadbutton.setOnAction(e -> {
             File file = filechooser.showOpenDialog(window);
             if (file != null){
-                if (logic.loadSim(file)) {
+                if (logic.loadSim(new SimFromFile(file))) {
                     loadbutton.setStyle("-fx-background-color: #70ff74; ");
                 } else {
                     loadbutton.setStyle("-fx-background-color: #ff7070; ");
@@ -109,19 +110,26 @@ public class markovUI extends Application {
         buttonfield2.setPadding(new Insets(10));
         buttonfield2.setSpacing(5);
         Button next2 = new Button("run");
-        Button save = new Button("save");
+        Button save = new Button("export");
+        Button save2 = new Button("save");
         Button back2 = new Button("back");
         Button clearbutton = new Button("clear");
         Region spacer2 = new Region();
         HBox.setHgrow(spacer2, Priority.ALWAYS);
-        buttonfield2.getChildren().setAll(back2, save, spacer2, clearbutton, next2);
+        buttonfield2.getChildren().setAll(back2, save, save2, spacer2, clearbutton, next2);
         
         save.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
             fileChooser.getExtensionFilters().add(extFilter);
             File file = fileChooser.showSaveDialog(window);
-            logic.saveSim(file);
+            if (file != null) {
+                logic.saveSim(new SimFromFile(file));
+            }
+        });
+        
+        save2.setOnAction(e -> {
+            logic.saveSim(database);
         });
         
         // Editfield - Center

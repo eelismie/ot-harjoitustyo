@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import markovsimulation.dao.SimDao;
+import markovsimulation.dao.SimFromFile;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -109,8 +111,9 @@ public class markovManagerTest {
         File temp = File.createTempFile("test", ".csv");
         temp.deleteOnExit();
         createNet();
-        boolean saveOk = manager.saveSim(temp);
-        boolean loadOk = manager.loadSim(temp);
+        SimDao reader = new SimFromFile(temp);
+        boolean saveOk = manager.saveSim(reader);
+        boolean loadOk = manager.loadSim(reader);
         assertTrue(saveOk&&loadOk);
     }
     

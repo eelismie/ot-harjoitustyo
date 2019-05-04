@@ -6,6 +6,7 @@ import java.io.File;
 import markovsimulation.simulation.Simulation;
 import markovsimulation.simulation.SimHelper;
 import java.util.ArrayList;
+import markovsimulation.dao.SimDao;
 
 /**
  * Main logic class of the Markov process simulation. 
@@ -164,14 +165,13 @@ public class markovManager {
         }
     }
     
-    public boolean loadSim(File file) {
-        SimFromFile filereader = new SimFromFile(file);
+    public boolean loadSim(SimDao reader) {
         try {
-            SimDescriptor read = filereader.loadSim();
-            this.simDetails = read;
-            if (this.simDetails == null) {
+            SimDescriptor read = reader.loadSim();
+            if (read == null) {
                 return false;
             }
+            this.simDetails = read;
             return true;
         } catch (Exception ex) {
             return false;
@@ -185,11 +185,8 @@ public class markovManager {
      * @return success 
      */
     
-    public boolean saveSim(File file) {
-        if (file == null) {
-            return false;
-        }
-        SimFromFile saver = new SimFromFile(file);
+    public boolean saveSim(SimDao saver) {
+        if (nothingLoaded()) return false;
         try {
             saver.saveSim(simDetails);
             return true;

@@ -46,7 +46,7 @@ public class SimFromDb implements SimDao {
     private void makeNodes() throws SQLException {
         Connection dbConnect = getConnection();
         PreparedStatement makeNodes = dbConnect.prepareStatement("CREATE TABLE IF NOT EXISTS Nodes ("
-                + "id INT AUTO_INCREMENT,"
+                + "id INT AUTO_INCREMENT NOT NULL,"
                 + "name VARCHAR(255),"
                 + "PRIMARY KEY (id))");
         makeNodes.execute();
@@ -62,7 +62,7 @@ public class SimFromDb implements SimDao {
     private void makeConnects() throws SQLException {
         Connection dbConnect = getConnection();
         PreparedStatement makeConnects = dbConnect.prepareStatement("CREATE TABLE IF NOT EXISTS Connections ("
-                + "id INT AUTO_INCREMENT,"
+                + "id INT AUTO_INCREMENT NOT NULL,"
                 + "start INT,"
                 + "end INT,"
                 + "PRIMARY KEY (id))");
