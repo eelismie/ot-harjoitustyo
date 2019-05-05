@@ -44,5 +44,12 @@
 ## Week 6
 ### May 3
 + Improving documentation ~ 4 hours
+
+### May 4
++ Added database class and tests ~ 4 hours
+
+### May 5
++ Tweaks, testing, documentation ~ 4 hours
+
 ## Total 
-36 hours
+48 hours
