@@ -16,6 +16,10 @@ To generate a checkstyle report:
 ```
 mvn checkstyle:checkstyle
 ```
+To generate a javadoc:
+```
+mvn javadoc:javadoc
+```
 To build an excecutable .jar with all necessary dependencies, use:
 ```
 mvn package 
