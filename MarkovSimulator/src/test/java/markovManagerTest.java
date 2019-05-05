@@ -1,10 +1,6 @@
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import markovsimulation.dao.SimDao;
-import markovsimulation.dao.SimFromFile;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -36,6 +32,18 @@ public class markovManagerTest {
         a.add("event3");        
         assertTrue(a.equals(manager.getSimDescription().getNodes()));
         assertTrue(manager.getSimDescription().getConnects().size()==3);
+    }
+    
+    @Test
+    public void cantAddRepeat() {
+        manager.addNode("event1");
+        manager.addNode("  event2 ");
+        manager.addNode("event2");
+        ArrayList<String> a = new ArrayList<>();
+        a.add("event1");
+        a.add("event2");     
+        assertTrue(a.equals(manager.getSimDescription().getNodes()));
+        assertTrue(manager.getSimDescription().getConnects().size()==2);
     }
     
     @Test

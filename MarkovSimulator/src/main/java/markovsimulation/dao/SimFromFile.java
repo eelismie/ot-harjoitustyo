@@ -17,6 +17,7 @@ import markovsimulation.domain.SimDescriptor;
  */
 
 public class SimFromFile implements SimDao { 
+    
     File location;
     
     public SimFromFile(File file) {
