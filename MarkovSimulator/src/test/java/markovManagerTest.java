@@ -106,17 +106,6 @@ public class markovManagerTest {
         assertTrue(received.equals(expected));
     }
     
-    @Test
-    public void saveLoadOk() throws IOException {
-        File temp = File.createTempFile("test", ".csv");
-        temp.deleteOnExit();
-        createNet();
-        SimDao reader = new SimFromFile(temp);
-        boolean saveOk = manager.saveSim(reader);
-        boolean loadOk = manager.loadSim(reader);
-        assertTrue(saveOk&&loadOk);
-    }
-    
     private void createNet() {
         manager.addNode("event1");
         manager.addNode("event2");

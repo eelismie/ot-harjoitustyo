@@ -28,7 +28,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Screen;
 
 public class markovUI extends Application {
     
@@ -42,7 +45,10 @@ public class markovUI extends Application {
     
     public void resize(Stage window, double w, double h){
         window.setHeight(h);
-        window.setWidth(w); 
+        window.setWidth(w);
+        Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+        window.setX((bounds.getWidth() - w) / 2.0);
+        window.setY((bounds.getHeight() - h) / 2.0);
     }
     
     @Override
@@ -59,6 +65,8 @@ public class markovUI extends Application {
         window.setWidth(400);
         window.setTitle("Markov Process Simulation");
         
+        Text title = new Text("Markov Process Simulation");
+        title.setFont(Font.font ("Verdana", 20));       
         //___load Scene___
                 
         //buttonfield - Bottom
@@ -73,14 +81,16 @@ public class markovUI extends Application {
         //inputfield - Center
         VBox inputfield1 = new VBox();
         inputfield1.setAlignment(Pos.CENTER);
+        inputfield1.setSpacing(10);
         inputfield1.setPadding(new Insets(10));
         
         HBox textinput1 = new HBox();
         textinput1.setSpacing(5);
+        textinput1.setAlignment(Pos.CENTER);
         Button loadbutton = new Button("load from csv");
         Button loadbutton2 = new Button("load from save");
         textinput1.getChildren().setAll(loadbutton, loadbutton2);
-        inputfield1.getChildren().setAll(textinput1);
+        inputfield1.getChildren().setAll(title, textinput1);
 
         FileChooser filechooser = new FileChooser();
         filechooser.getExtensionFilters().add(new ExtensionFilter("CSV", "*.csv"));
@@ -108,7 +118,7 @@ public class markovUI extends Application {
         BorderPane frame1 = new BorderPane();
         frame1.setBottom(buttonfield1);
         frame1.setCenter(inputfield1);
-        frame1.setAlignment(inputfield1, Pos.CENTER);
+        frame1.setPadding(new Insets(10, 10, 10, 10));
         
         Scene loadscene = new Scene(frame1);
         
