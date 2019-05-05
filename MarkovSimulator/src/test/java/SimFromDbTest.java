@@ -3,6 +3,7 @@ import org.junit.Test;
 import markovsimulation.domain.markovManager;
 import markovsimulation.dao.SimFromDb;
 import java.sql.*;
+import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 /**
@@ -26,7 +27,18 @@ public class SimFromDbTest {
     @Test
     public void saveLoadOk() {
         assertTrue(manager.saveSim(database));
+        manager.restart();
         assertTrue(manager.loadSim(database));
+        assertTrue(!manager.nothingLoaded());
+    }
+    
+    @Test
+    public void correctLoad() {
+        manager.saveSim(database);
+        manager.restart();
+        manager.loadSim(database);
+        ArrayList<Integer> connections = manager.getConnects();
+        assertTrue("0 -> 1".equals(connections.get(0)));
     }
     
     private void createNet() {

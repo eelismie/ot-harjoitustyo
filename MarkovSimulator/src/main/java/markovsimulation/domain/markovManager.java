@@ -56,7 +56,8 @@ public class markovManager {
     
     public void addNode(String description) {
         String trimmed = description.trim();
-        if (nodeExists(trimmed)) {
+        boolean empty = "".contentEquals(trimmed);
+        if (nodeExists(trimmed) || empty) {
             return;
         }
         simDetails.getNodes().add(trimmed);

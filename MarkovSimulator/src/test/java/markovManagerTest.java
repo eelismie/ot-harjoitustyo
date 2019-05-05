@@ -35,7 +35,7 @@ public class markovManagerTest {
     }
     
     @Test
-    public void cantAddRepeat() {
+    public void cantAddRepeatNode() {
         manager.addNode("event1");
         manager.addNode("  event2 ");
         manager.addNode("event2");
@@ -44,6 +44,14 @@ public class markovManagerTest {
         a.add("event2");     
         assertTrue(a.equals(manager.getSimDescription().getNodes()));
         assertTrue(manager.getSimDescription().getConnects().size()==2);
+    }
+    
+    @Test
+    public void cantAddEmptyNode() {
+        manager.addNode("     ");
+        manager.addNode(" ");
+        assertTrue(manager.getNodes().isEmpty());
+        assertTrue(manager.nothingLoaded());
     }
     
     @Test
