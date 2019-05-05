@@ -1,6 +1,6 @@
 # Markov Process Simulation
 
-A markov process is a weighted network model of a stochastic system, where the nodes of the network are possible states of the system, and the weights of the edges correspond to the probability of the system transitioning from one state to the other. The idea of this project is to create an application that allows the user to create and edit small markov chains and explore the statistics of a random walk on the graph. Markov processes have been used to define Google's pagerank algorithm, and have been used to model multiple physical phenomena.
+A markov process is a weighted network model of a stochastic system, where the nodes of the network are possible states of the system, and the weights of the edges correspond to the probability of the system transitioning from one state to the other. The idea of this project is to create an application that allows the user to create and save small markov chains and explore the statistics of a random walk on them. One should find that for many configurations of the nodes and connections, the probability distribution of being at node n after t steps is the same for all starting nodes, as long as t is sufficiently large.
 
 ## Instructions
 
