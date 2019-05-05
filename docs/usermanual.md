@@ -21,6 +21,8 @@ When you have created nodes you can press "run". If no nodes are created you can
 
 ## Result Screen
 
-After this, you can advance the simulation state you created. You can select the starting node with a slider. You can enable the random walk to perform jumps with the slider below it. You can also edit the step size with a third slider. If you want to reset the simulation state, press 'reset'. 
+After this, you can view the results of a random walk on the Markov Chain you created. The probabilities of being at each state after one step are displayed initially. If you want to see the probabilities after two steps, advance the simulation state by pressing 'next'. You can see the probabilities after n steps in the chain by advancing the simulation state n times. 
+
+These probabilities depend on the starting node. You can select the starting node of the random walk with the top slider. You can enable the random walk to perform jumps on the next step with the slider below it. You can also edit the step size with a third slider. If you want to reset the simulation state, press 'reset'. 
 
 
