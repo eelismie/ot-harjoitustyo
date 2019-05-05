@@ -48,7 +48,7 @@ public class SimHelper {
      * @param sim simulation to recover
      */
     
-    public void recoverstate(Simulation sim) {
+    public void recoverState(Simulation sim) {
         sim.state = savedState;
     }
     

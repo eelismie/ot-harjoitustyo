@@ -136,11 +136,23 @@ public class SimFromDb implements SimDao {
         add.close();    
     }
     
+    /**
+     * Clear all information in the Connection table
+     * @param connect sql connection
+     * @throws SQLException 
+     */
+    
     private void clearConnects(Connection connect) throws SQLException {
         PreparedStatement clear = connect.prepareStatement("DELETE FROM Connections");
         clear.execute();
         clear.close();
     }
+    
+    /**
+     * Clear all information in the Nodes table
+     * @param connect sql connection
+     * @throws SQLException 
+     */
     
     private void clearNodes(Connection connect) throws SQLException {
         PreparedStatement clear = connect.prepareStatement("DELETE FROM Nodes");

@@ -3,7 +3,7 @@ package markovsimulation.ui;
 import java.util.ArrayList;
 import java.io.File;
 import java.sql.SQLException;
-import markovsimulation.domain.markovManager;
+import markovsimulation.domain.MarkovManager;
 import markovsimulation.dao.SimFromDb;
 import markovsimulation.dao.SimFromFile;
 import javafx.collections.ObservableList;
@@ -35,7 +35,7 @@ import javafx.stage.Screen;
 
 public class markovUI extends Application {
     
-    private markovManager logic;
+    private MarkovManager logic;
     private SimFromDb database;
     
     public void listelements(ListView<String> view, ArrayList<String> nodes){
@@ -53,7 +53,7 @@ public class markovUI extends Application {
     
     @Override
     public void init() throws SQLException {
-        logic = new markovManager();
+        logic = new MarkovManager();
         database = new SimFromDb();
         database.initDb("network.db");
     }
@@ -70,78 +70,78 @@ public class markovUI extends Application {
         //___load Scene___
                 
         //buttonfield - Bottom
-        HBox buttonfield1 = new HBox();
-        buttonfield1.setPadding(new Insets(10));
-        buttonfield1.setAlignment(Pos.CENTER);
+        HBox buttonField1 = new HBox();
+        buttonField1.setPadding(new Insets(10));
+        buttonField1.setAlignment(Pos.CENTER);
         Button next1 = new Button("next");
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
-        buttonfield1.getChildren().setAll(spacer, next1);
+        buttonField1.getChildren().setAll(spacer, next1);
         
         //inputfield - Center
-        VBox inputfield1 = new VBox();
-        inputfield1.setAlignment(Pos.CENTER);
-        inputfield1.setSpacing(10);
-        inputfield1.setPadding(new Insets(10));
+        VBox inputField1 = new VBox();
+        inputField1.setAlignment(Pos.CENTER);
+        inputField1.setSpacing(10);
+        inputField1.setPadding(new Insets(10));
         
-        HBox textinput1 = new HBox();
-        textinput1.setSpacing(5);
-        textinput1.setAlignment(Pos.CENTER);
-        Button loadbutton = new Button("load from csv");
-        Button loadbutton2 = new Button("load from save");
-        textinput1.getChildren().setAll(loadbutton, loadbutton2);
-        inputfield1.getChildren().setAll(title, textinput1);
+        HBox textInput1 = new HBox();
+        textInput1.setSpacing(5);
+        textInput1.setAlignment(Pos.CENTER);
+        Button loadButton = new Button("load from csv");
+        Button loadButton2 = new Button("load from save");
+        textInput1.getChildren().setAll(loadButton, loadButton2);
+        inputField1.getChildren().setAll(title, textInput1);
 
-        FileChooser filechooser = new FileChooser();
-        filechooser.getExtensionFilters().add(new ExtensionFilter("CSV", "*.csv"));
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new ExtensionFilter("CSV", "*.csv"));
         
-        loadbutton.setOnAction(e -> {
-            File file = filechooser.showOpenDialog(window);
+        loadButton.setOnAction(e -> {
+            File file = fileChooser.showOpenDialog(window);
             if (file != null){
                 if (logic.loadSim(new SimFromFile(file))) {
-                    loadbutton.setStyle("-fx-background-color: #70ff74; ");
+                    loadButton.setStyle("-fx-background-color: #70ff74; ");
                 } else {
-                    loadbutton.setStyle("-fx-background-color: #ff7070; ");
+                    loadButton.setStyle("-fx-background-color: #ff7070; ");
                 };
             }
         });
         
-        loadbutton2.setOnAction(e -> {
+        loadButton2.setOnAction(e -> {
             if (logic.loadSim(database)) {
-                loadbutton2.setStyle("-fx-background-color: #70ff74; ");
+                loadButton2.setStyle("-fx-background-color: #70ff74; ");
             } else {
-                loadbutton2.setStyle("-fx-background-color: #ff7070; ");
+                loadButton2.setStyle("-fx-background-color: #ff7070; ");
             };
         });
         
         //Load scene Root
         BorderPane frame1 = new BorderPane();
-        frame1.setBottom(buttonfield1);
-        frame1.setCenter(inputfield1);
+        frame1.setBottom(buttonField1);
+        frame1.setCenter(inputField1);
         frame1.setPadding(new Insets(10, 10, 10, 10));
         
-        Scene loadscene = new Scene(frame1);
+        Scene loadScene = new Scene(frame1);
         
         //___edit scene___
         
         // Buttonfield - Bottom
-        HBox buttonfield2 = new HBox();
-        buttonfield2.setPadding(new Insets(10));
-        buttonfield2.setSpacing(5);
+        HBox buttonField2 = new HBox();
+        buttonField2.setPadding(new Insets(10));
+        buttonField2.setSpacing(5);
         Button next2 = new Button("run");
         Button save = new Button("export");
         Button save2 = new Button("save");
         Button back2 = new Button("back");
-        Button clearbutton = new Button("clear");
+        Button clearButton = new Button("clear");
         Region spacer2 = new Region();
         HBox.setHgrow(spacer2, Priority.ALWAYS);
-        buttonfield2.getChildren().setAll(back2, save, save2, spacer2, clearbutton, next2);
+        buttonField2.getChildren().setAll(back2, save, save2, spacer2, clearButton, next2);
         
         save.setOnAction(e -> {
-            FileChooser fileChooser = new FileChooser();
+            FileChooser fileChooser2 = new FileChooser();
             FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showSaveDialog(window);
+            fileChooser2.getExtensionFilters().add(extFilter);
+            File file = fileChooser2.showSaveDialog(window);
             if (file != null) {
                 logic.saveSim(new SimFromFile(file));
             }
@@ -152,28 +152,28 @@ public class markovUI extends Application {
         });
         
         // Editfield - Center
-        GridPane editpane = new GridPane();
-        editpane.setPadding(new Insets(10));
-        editpane.setHgap(5);
-        editpane.setVgap(5);
-        editpane.setAlignment(Pos.CENTER);
+        GridPane editPane = new GridPane();
+        editPane.setPadding(new Insets(10));
+        editPane.setHgap(5);
+        editPane.setVgap(5);
+        editPane.setAlignment(Pos.CENTER);
         
-        HBox textinput2 = new HBox();
-        textinput2.setSpacing(5);
-        Button nodeaddbutton = new Button("add");
-        TextField nodename = new TextField();
-        Label nodeaddlabel = new Label("Node descriptor: ");
-        textinput2.getChildren().setAll(nodeaddlabel, nodename, nodeaddbutton);
+        HBox textInput2 = new HBox();
+        textInput2.setSpacing(5);
+        Button nodeAddButton = new Button("add");
+        TextField nodeName = new TextField();
+        Label nodeAddLabel = new Label("Node descriptor: ");
+        textInput2.getChildren().setAll(nodeAddLabel, nodeName, nodeAddButton);
         
-        HBox textinput3 = new HBox();
-        textinput3.setSpacing(5);
-        Button connectaddbutton = new Button("add");
-        TextField connectfrom = new TextField();
-        TextField connectto = new TextField();
-        connectfrom.setMaxWidth(50);
-        connectto.setMaxWidth(50);
+        HBox textInput3 = new HBox();
+        textInput3.setSpacing(5);
+        Button connectAddButton = new Button("add");
+        TextField connectFrom = new TextField();
+        TextField connectTo = new TextField();
+        connectFrom.setMaxWidth(50);
+        connectTo.setMaxWidth(50);
         Label connectaddlabel = new Label("Connection (start idx/end idx): ");
-        textinput3.getChildren().setAll(connectaddlabel, connectfrom, connectto, connectaddbutton);
+        textInput3.getChildren().setAll(connectaddlabel, connectFrom, connectTo, connectAddButton);
         
         ListView<String> nodelist = new ListView();
         ListView<String> connectionlist = new ListView();
@@ -181,15 +181,15 @@ public class markovUI extends Application {
         Text nodeadded = new Text();
         Text connectadded = new Text();
         
-        editpane.add(nodeadded, 0, 0);
-        editpane.add(connectadded, 1, 0);
-        editpane.add(nodelist, 0, 1);
-        editpane.add(connectionlist, 1, 1);
-        editpane.add(textinput2, 0, 2);
-        editpane.add(textinput3, 1, 2);
+        editPane.add(nodeadded, 0, 0);
+        editPane.add(connectadded, 1, 0);
+        editPane.add(nodelist, 0, 1);
+        editPane.add(connectionlist, 1, 1);
+        editPane.add(textInput2, 0, 2);
+        editPane.add(textInput3, 1, 2);
         
-        nodeaddbutton.setOnAction(e -> {
-            String newname = nodename.getText().trim();
+        nodeAddButton.setOnAction(e -> {
+            String newname = nodeName.getText().trim();
             if (!logic.nodeExists(newname) && (!newname.equals(""))){
                 logic.addNode(newname);
                 nodeadded.setText("node: '" + newname + "' added!");
@@ -197,9 +197,9 @@ public class markovUI extends Application {
             }
         });
         
-        connectaddbutton.setOnAction(e -> {
-            String begin = connectfrom.getText();
-            String end = connectto.getText();
+        connectAddButton.setOnAction(e -> {
+            String begin = connectFrom.getText();
+            String end = connectTo.getText();
             if (logic.addConnect(begin, end)){
                 connectadded.setText("connection from " + begin + " to " + end + " added!");
                 listelements(connectionlist, logic.getConnects());
@@ -208,15 +208,15 @@ public class markovUI extends Application {
             }
         });
         
-        clearbutton.setOnAction(e -> {
+        clearButton.setOnAction(e -> {
             logic.restart();
             listelements(connectionlist, logic.getConnects());
             listelements(nodelist, logic.getNodes());     
         });
         
         BorderPane frame2 = new BorderPane();
-        frame2.setBottom(buttonfield2);
-        frame2.setCenter(editpane);
+        frame2.setBottom(buttonField2);
+        frame2.setCenter(editPane);
         
         Scene editscene = new Scene(frame2);
          
@@ -337,7 +337,7 @@ public class markovUI extends Application {
         });
         
         back2.setOnAction(e -> {
-            window.setScene(loadscene);
+            window.setScene(loadScene);
             resize(window, 400, 500);
         });
         
@@ -346,7 +346,7 @@ public class markovUI extends Application {
             resize(window, 800, 500);
         });
         
-        window.setScene(loadscene);
+        window.setScene(loadScene);
         window.show();
     }
     

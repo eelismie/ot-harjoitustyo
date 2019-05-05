@@ -4,14 +4,14 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import markovsimulation.domain.markovManager;
+import markovsimulation.domain.MarkovManager;
 
 public class markovManagerTest {
-    markovManager manager;
+    MarkovManager manager;
     
     @Before
     public void setUp() {
-        manager = new markovManager();
+        manager = new MarkovManager();
     }
     
     @Test

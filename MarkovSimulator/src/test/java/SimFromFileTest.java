@@ -7,17 +7,17 @@ import java.util.List;
 import markovsimulation.dao.SimDao;
 import org.junit.Before;
 import org.junit.Test;
-import markovsimulation.domain.markovManager;
+import markovsimulation.domain.MarkovManager;
 import markovsimulation.dao.SimFromFile;
 import static org.junit.Assert.*;
 
 public class SimFromFileTest {
     
-    markovManager manager;
+    MarkovManager manager;
     
     @Before
     public void setUp() {
-        this.manager = new markovManager();
+        this.manager = new MarkovManager();
         createNet();
     }
     

@@ -40,7 +40,7 @@ public class Simulation {
         state = transition;
     }
     /**
-     * method for evolving the current state by step
+     * method for evolving the current state by one step
      */
     public void next() {
         double[][] next = new double[size][size];
@@ -57,11 +57,11 @@ public class Simulation {
         this.state = next;
     }
     
-    public double[][] getTransitionMatrix() { //needed for tests
+    public double[][] getTransitionMatrix() { 
         return this.transition;
     }
     
-    public double[][] getStateMatrix() { //needed for tests
+    public double[][] getStateMatrix() { 
         return this.state;
     }
     

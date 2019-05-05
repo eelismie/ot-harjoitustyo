@@ -1,6 +1,6 @@
 import org.junit.Before;
 import org.junit.Test;
-import markovsimulation.domain.markovManager;
+import markovsimulation.domain.MarkovManager;
 import markovsimulation.dao.SimFromDb;
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,13 +12,13 @@ import static org.junit.Assert.*;
  */
 public class SimFromDbTest {
     
-    markovManager manager;
+    MarkovManager manager;
     SimFromDb database;
     String testDb = "test.db";
     
     @Before
     public void setUp() {
-        this.manager = new markovManager();
+        this.manager = new MarkovManager();
         this.database = new SimFromDb();
         this.database.initDb(this.testDb);
         createNet();

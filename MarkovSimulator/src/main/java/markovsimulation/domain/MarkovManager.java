@@ -12,16 +12,16 @@ import java.util.ArrayList;
  * @author eelismie
  */
 
-public class markovManager {
+public class MarkovManager {
     int startNode;
     int stepSize;
     Simulation currentSim;
     SimHelper helper;
     SimDescriptor simDetails;
     
-    public markovManager() {
-        startNode = 0;
-        stepSize = 1;
+    public MarkovManager() {
+        startNode = 0; //results are to be displayed for zeroth starting node by default
+        stepSize = 1; //stepsize in simulations is 1 by default
         simDetails = new SimDescriptor();
     }
     
@@ -101,6 +101,11 @@ public class markovManager {
     public boolean nodeExists(String description) {
         return simDetails.getNames().contains(description);
     }
+    
+    /**
+     * Method for checking if no simulation is loaded.
+     * @return Boolean is nothing loaded 
+     */
     
     public boolean nothingLoaded() {
         if (simDetails == null) {
@@ -209,8 +214,8 @@ public class markovManager {
     }
     
     /**
-     * Adds or removes jumps to the current loaded simulation
-     * @param beta 
+     * Adds or removes jumps to the current loaded simulation. 
+     * @param beta value between 0.0 and 1.0 describing jumping probability
      */
     
     public void addJumps(double beta) {
@@ -226,7 +231,7 @@ public class markovManager {
      */
     
     public void recoverSim() {
-        helper.recoverstate(currentSim);
+        helper.recoverState(currentSim);
     }
     
     public void setResultDisplay(int i) {
