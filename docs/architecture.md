@@ -31,9 +31,11 @@ The classes and their tasks can be summarized as follows:
 
 The classes are organized inside the packages as shown below. The user interacts with a UI layer, and the application logic is handled chiefly by the markovManager class. Simulation descriptions are contained in simDescriptor objects, which can be loaded from a data-access-object or created by the user in the application.
 
-The simulation state that is displayed to the user and advanced is contained in the simulation class. The simulation class mainly advances the simulation and contains the necessary information in a light format. The SimHelper class was implemented to 
+The simulation state that is displayed to the user and advanced is contained in the simulation class. The simulation class mainly advances the simulation and contains the necessary information in a light format. The SimHelper class was implemented to edit simulations when they were being run.
 
 ![Architecture](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/pictures/architecture.jpg)
+
+MarkovManager methods are called from the UI. The details of information retriaval are hidden behind the SimDao interface: the dependence of MarkovManager on SimFromFile and SimFromDb are injected depending on the user's intentions. 
 
 ## Data Storage
 
@@ -58,3 +60,6 @@ The simulation state can be edited from the MarkovManager class with the aid of 
 
 ### UI
 The ui is entirely initialized in the start() method. This could be split into separate methods, even though the different scenes don't have many similarities. Since the ui has multiple nested layers and functionalities, the code is currently quite lengthy. 
+
+## Data Deletion
+The program is unfortunately structured in a way that makes it difficult to remove connections. Because nodes and connections are stored in separate objects, deleting a node would require us to reconfigure the connections in complicated ways. Data storage could be structured in a smarter way to allow for the dependency of connections on nodes to be edited in a natural way. 
