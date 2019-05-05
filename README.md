@@ -39,5 +39,7 @@ This will generate two files, one with the ending '...with-dependencies.jar'. Th
 
 [Testing](docs/testing.md)
 
-## Source Code
-[Releases](https://github.com/volatilequark/ot-harjoitustyo/releases)
+## Releases
+[Final Release](https://github.com/volatilequark/ot-harjoitustyo/releases/tag/v2.0)
+
+[Week 5 Release](https://github.com/volatilequark/ot-harjoitustyo/releases/tag/viikko5)
