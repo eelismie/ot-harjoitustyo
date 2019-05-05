@@ -29,9 +29,11 @@ This will generate two files, one with the ending '...with-dependencies.jar'. Th
 
 [Work Hour Record](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/workhours.md)
 
-[User Manual for Current Version](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/usermanual.md)
+[User Manual](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/usermanual.md)
 
 [Architecture description](https://github.com/volatilequark/ot-harjoitustyo/blob/master/docs/architecture.md)
+
+[Testing](docs/testing.md)
 
 ## Source Code
 [Releases](https://github.com/volatilequark/ot-harjoitustyo/releases)
